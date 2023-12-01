@@ -5,8 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
   standalone: true,
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  imports: [BrowserModule]
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'connections-app';
