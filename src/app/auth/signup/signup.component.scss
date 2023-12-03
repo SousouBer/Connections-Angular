@@ -48,7 +48,7 @@ input:focus {
   margin-bottom: 1rem;
 }
 
-.submit-btn {
+.submit-btn, .submit-btn:disabled {
   font-size: 1.5rem;
   border-radius: 50px;
   border: none;
@@ -58,6 +58,10 @@ input:focus {
   color: #fff;
   margin-top: 2rem;
   transition: all 0.3s ease;
+}
+
+.submit-btn:disabled {
+  background-color: grey;
 }
 
 .submit-btn:hover {
@@ -76,4 +80,19 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+  border-radius: 5px;
+}
+
+.warning-message {
+  font-size: 1rem;
+  color: red;
+  font-style: italic;
+}
+
+li {
+  margin-left: 2rem;
 }
