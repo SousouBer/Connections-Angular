@@ -1,6 +1,8 @@
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { SigninComponent } from 'src/app/auth/signin/signin.component';
-import { SignupComponent } from 'src/app/auth/signup/signup.component';
+import { SigninComponent } from 'src/app/auth/components/signin/signin.component';
+import { SignupComponent } from 'src/app/auth/components/signup/signup.component';
 
 @Component({
   selector: 'app-main',
@@ -10,10 +12,7 @@ import { SignupComponent } from 'src/app/auth/signup/signup.component';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

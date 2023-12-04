@@ -6,6 +6,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { Observable, catchError, map, throwError } from 'rxjs';
+import { errorResponseInterface } from '../../models/register.interface';
 
 @Component({
   selector: 'app-signup',
@@ -17,28 +20,37 @@ import {
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
 
+  loading = false;
+  errorMessage: null | string = null;
+
+  constructor(private authService: AuthService) {}
+
   ngOnInit(): void {
     this.signupForm = new FormGroup({
-      firstname: new FormControl(null, [
+      name: new FormControl(null, [
         Validators.required,
         Validators.maxLength(40),
         this.onlyLettersAndSpaces.bind(this),
       ]),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(8), this.strongPassword.bind(this)]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(8),
+        this.strongPassword.bind(this),
+      ]),
     });
   }
 
   //Use getters to have shorted code in the template
-  get firstname(){
-    return this.signupForm.get('firstname');
+  get name() {
+    return this.signupForm.get('name');
   }
 
-  get email(){
+  get email() {
     return this.signupForm.get('email');
   }
 
-  get password(){
+  get password() {
     return this.signupForm.get('password');
   }
 
@@ -64,7 +76,7 @@ export class SignupComponent implements OnInit {
   strongPassword(control: FormControl): { [s: string]: boolean } | null {
     const value = control.value;
 
-    if(!value){
+    if (!value) {
       return null;
     }
 
@@ -74,20 +86,38 @@ export class SignupComponent implements OnInit {
     const containsLowerCase = /[a-z]/.test(value);
     const containsCharacters = /[!@#?]/.test(value);
 
-    const isStrongPassword = value.length >= 8
-      && containsNumber
-      && containsUpperCase
-      && containsLowerCase
-      && containsCharacters;
+    const isStrongPassword =
+      value.length >= 8 &&
+      containsNumber &&
+      containsUpperCase &&
+      containsLowerCase &&
+      containsCharacters;
 
-        if (!isStrongPassword) {
-            return { weakPassword: true };
-        }
-        return null;
+    if (!isStrongPassword) {
+      return { weakPassword: true };
+    }
+    return null;
   }
 
-  onSubmit(){
-    // this.signupForm.reset();
-    console.log(this.signupForm.value);
+  // Use a getter to conditionally render an error message.
+
+  onSubmit() {
+    this.loading = true;
+    this.errorMessage = null;
+
+    this.authService.register(this.signupForm.value).subscribe(
+      (data) => {
+        this.loading = false;
+        this.signupForm.reset();
+      },
+      (error) => {
+        this.loading = false;
+        const { message } = <errorResponseInterface>(error.error);
+
+        this.email?.setErrors({ emailIsAlreadyTaken: true });
+
+        this.errorMessage = message;
+      }
+    );
   }
 }

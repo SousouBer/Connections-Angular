@@ -2,16 +2,17 @@
   <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
     <h2 class="register-title">Register to join others!</h2>
     <div class="input-wrapper">
-      <label for="firstname">First name</label>
-      <input formControlName="firstname"  type="text" class="firstname-input" id="firstname" />
-      <span *ngIf="firstname?.invalid && firstname?.touched" class="warning-message">Please, enter a valid first name.</span>
-      <span *ngIf="firstname?.errors?.['maxlength']" class="warning-message">Input is more than 40 characters.</span>
-      <span *ngIf="firstname?.errors?.['onlyLettersAndLettersAllowed']" class="warning-message">Input must contain letters and spaces only.</span>
-    </div>
-    <div class="input-wrapper">
+      <span *ngIf="errorMessage" class="warning-message">An error occured: {{ errorMessage }}.</span>
       <label for="email">Email</label>
       <input formControlName="email" type="email" class="email-input" id="email" />
-      <span *ngIf="email?.invalid && email?.touched" class="warning-message">Please, enter a valid email.</span>
+      <span *ngIf="email?.invalid && email?.touched && email?.errors?.['emailIsAlreadyTaken']" class="warning-message">Please, enter a valid email.</span>
+    </div>
+    <div class="input-wrapper">
+      <label for="firstname">First name</label>
+      <input formControlName="name"  type="text" class="firstname-input" id="firstname" />
+      <span *ngIf="name?.invalid && name?.touched" class="warning-message">Please, enter a valid first name.</span>
+      <span *ngIf="name?.errors?.['maxlength']" class="warning-message">Input is more than 40 characters.</span>
+      <span *ngIf="name?.errors?.['onlyLettersAndLettersAllowed']" class="warning-message">Input must contain letters and spaces only.</span>
     </div>
     <div class="input-wrapper">
       <label for="password">Password</label>
@@ -25,7 +26,8 @@
       </ul>
     </div>
     <div class="submit-btn-wrapper">
-      <button class="submit-btn" type="submit" [disabled]="signupForm.invalid" [ngClass]="{'submit-btn': signupForm.valid}">Register</button>
+      <span *ngIf="loading">Loading...</span>
+      <button *ngIf="!loading" class="submit-btn" type="submit" [disabled]="signupForm.invalid" [ngClass]="{'submit-btn': signupForm.valid}">Register</button>
     </div>
     <span *ngIf="signupForm.invalid && signupForm?.touched" class="warning-message">The form is not valid.</span>
     <div class="signin-suggestion">
