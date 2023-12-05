@@ -8,11 +8,12 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { SpinnerComponent } from '../spinner.component';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SpinnerComponent],
+  imports: [CommonModule, ReactiveFormsModule, SpinnerComponent, RouterModule],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
 })
@@ -20,9 +21,10 @@ export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
 
   loading = false;
-  errorMessage: null | string = null;
+  errorMessage: string| null = null;
+  success = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
@@ -105,7 +107,12 @@ export class SignupComponent implements OnInit {
     this.authService.register(this.signupForm.value).subscribe(
       (data) => {
         this.loading = false;
+        this.success = true;
         this.signupForm.reset();
+        setTimeout(() => {
+          this.router.navigate(['/signin']);
+          this.success = false;
+        },2000);
       },
       (error) => {
         this.loading = false;

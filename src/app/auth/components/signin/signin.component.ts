@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { SpinnerComponent } from '../spinner.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -20,9 +21,10 @@ export class SigninComponent implements OnInit {
   signinForm!: FormGroup;
 
   isLoading = false;
-  errorMessage: null | string = null;
+  errorMessage: string | null = null;
+  success = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.signinForm = new FormGroup({
@@ -42,12 +44,16 @@ export class SigninComponent implements OnInit {
   onSubmit() {
     this.errorMessage = null;
     this.isLoading = true;
-    console.log(this.signinForm.value);
+
     this.authService.login(this.signinForm.value).subscribe(
       (data) => {
         this.isLoading = false;
-        console.log(data);
+        this.success = true;
         this.signinForm.reset();
+        setTimeout(() => {
+          this.router.navigate(['/main'])
+          this.success = false;
+        },2000)
       },
       (error) => {
         this.errorMessage = error;

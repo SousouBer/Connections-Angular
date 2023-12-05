@@ -6,7 +6,7 @@ import {
   errorResponseInterface,
 } from '../models/register.interface';
 import { Subject, catchError, tap, throwError } from 'rxjs';
-import { ValidUser } from '../models/user.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ export class AuthService {
   private registerUrl = 'https://tasks.app.rs.school/angular/registration';
   private authUrl = 'https://tasks.app.rs.school/angular/login';
 
-  validUser = new Subject<ValidUser>();
+  user = new Subject<User>();
 
   constructor(private http: HttpClient) {}
 
@@ -29,8 +29,8 @@ export class AuthService {
     return this.http
       .post<AuthResponse>(this.authUrl, loginData)
       .pipe(catchError((err) => this.handleError(err)), tap(userData => {
-        const currentUser = new ValidUser(userData.uid, userData.token);
-        this.validUser.next(currentUser);
+        const currentUser = new User(userData.uid, loginData.email, userData.token);
+        this.user.next(currentUser);
 
         localStorage.setItem('userData', JSON.stringify(currentUser));
       }));

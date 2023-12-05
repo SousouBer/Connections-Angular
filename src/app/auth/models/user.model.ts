@@ -1,5 +1,5 @@
-export class ValidUser {
-  constructor(public uid: string, private _token: string) {}
+export class User {
+  constructor(public uid: string, public email: string, private _token: string) {}
 
   get token() {
     return this._token;

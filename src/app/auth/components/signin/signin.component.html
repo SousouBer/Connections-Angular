@@ -3,6 +3,7 @@
     <h2 class="signin-title">Connect with others!</h2>
     <div class="input-wrapper">
       <span *ngIf="errorMessage" class="warning-message">An error occured: {{ errorMessage }}.</span>
+      <span *ngIf="success" class="successMessage">Authentication success.</span>
       <label for="email">Email</label>
       <input formControlName="email" type="email" class="email-input" id="email" />
       <span *ngIf="email?.invalid && email?.touched" class="warning-message">Please, enter an email.</span>
@@ -18,7 +19,7 @@
     </div>
     <span *ngIf="signinForm?.invalid && signinForm?.touched" class="warning-message">The form is not valid yet.</span>
     <div class="signup-suggestion">
-      <span>Not a member yet? You can <a href="#">Sign up</a> instead.</span>
+      <span>Not a member yet? You can <a routerLink="/signup">Sign up</a> instead.</span>
     </div>
   </form>
 </section>
