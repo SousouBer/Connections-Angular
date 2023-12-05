@@ -8,12 +8,12 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { SpinnerComponent } from '../spinner.component';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SpinnerComponent],
+  imports: [CommonModule, ReactiveFormsModule, SpinnerComponent, RouterModule],
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss'],
 })

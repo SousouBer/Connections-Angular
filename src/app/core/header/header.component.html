@@ -1,1 +1,13 @@
-<p>header works!</p>
+<header class="header-section">
+  <div class="title-auth-container">
+    <div class="img-container">
+      <img [src]="'assets/imgs/people.png'" alt="Connections logo">
+    </div>
+    <h1 class="header-title">Build Your Connections</h1>
+    <button class="auth-btn" routerLink="/signin" routerLinkActive="active-router-btn">Authenticate</button>
+  </div>
+  <div class="profile-logout-container">
+    <button class="profile-btn">View Your Profile</button>
+    <button class="logout-btn">Log Out</button>
+  </div>
+</header>
