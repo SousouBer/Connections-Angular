@@ -1,0 +1,13 @@
+<header class="header-section">
+  <div class="title-auth-container">
+    <div class="img-container">
+      <img [src]="'assets/imgs/people.png'" alt="Connections logo">
+    </div>
+    <h1 class="header-title">Build Your Connections</h1>
+    <button *ngIf="!isAuthenticated" class="auth-btn" routerLink="/signin" routerLinkActive="active-router-btn">Authenticate</button>
+  </div>
+  <div class="profile-logout-container">
+    <button *ngIf="isAuthenticated" class="profile-btn" (click)="onGetProfile()">View Your Profile</button>
+    <button *ngIf="isAuthenticated" class="logout-btn" (click)="logout()">Log Out</button>
+  </div>
+</header>

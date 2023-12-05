@@ -5,8 +5,9 @@ import {
   PostData,
   errorResponseInterface,
 } from '../models/register.interface';
-import { Subject, catchError, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Subject, catchError, tap, throwError } from 'rxjs';
 import { User } from '../models/user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -15,9 +16,9 @@ export class AuthService {
   private registerUrl = 'https://tasks.app.rs.school/angular/registration';
   private authUrl = 'https://tasks.app.rs.school/angular/login';
 
-  user = new Subject<User>();
+  user = new BehaviorSubject<User | null>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   register(registerData: PostData) {
     return this.http
@@ -34,6 +35,11 @@ export class AuthService {
 
         localStorage.setItem('userData', JSON.stringify(currentUser));
       }));
+  }
+
+  logout(){
+    this.user.next(null);
+    this.router.navigate(['/signin']);
   }
 
   private handleError(errorReponse: HttpErrorResponse) {
