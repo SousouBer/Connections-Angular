@@ -6,6 +6,7 @@ import { HeaderComponent } from './core/components/header/header.component';
 import { FooterComponent } from './core/components/footer/footer.component';
 import { MainComponent } from './core/components/main/main.component';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { ProfileComponent } from './core/components/profile/profile.component';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
     HeaderComponent,
     MainComponent,
     FooterComponent,
+    ProfileComponent,
     RouterModule,
     RouterOutlet,
   ],

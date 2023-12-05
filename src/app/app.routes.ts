@@ -22,4 +22,7 @@ export const routes: Routes = [
         (mod) => mod.SignupComponent
       ),
   },
+  {
+    path: 'profile', loadComponent: () => import('./core/components/profile/profile.component').then(mod => mod.ProfileComponent)
+  }
 ];

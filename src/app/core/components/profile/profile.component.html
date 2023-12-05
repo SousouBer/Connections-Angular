@@ -1,0 +1,23 @@
+<section class="profile-section">
+  <div class="profile-container">
+    <div class="img-container">
+      <img [src]="'assets/imgs/user2.png'" alt="User logo">
+    </div>
+    <div class="profile-details">
+      <div class="name-container">
+        <form *ngIf="editUsername" class="username-edit-form">
+          <input class="username-input" type="text">
+          <div class="input-btns-container">
+            <button class="save-username" type="submi">Save</button>
+            <button (click)="cancelEdit()" class="cancel-username" type="button">Cancel</button>
+          </div>
+        </form>
+        <span *ngIf="!editUsername" class="user-name">Your Name: Soso</span>
+        <button *ngIf="!editUsername" (click)="editUser()" class="edit-username-btn">Edit</button>
+      </div>
+      <span class="user-email">Your E-mail: sosiko20@mail.ru</span>
+      <span class="user-id">Your id: dasdfdfsdf</span>
+      <span class="user-email">Account creation time: 2015/10/15</span>
+    </div>
+  </div>
+</section>
