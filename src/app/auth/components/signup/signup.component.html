@@ -26,7 +26,7 @@
       </ul>
     </div>
     <div class="submit-btn-wrapper">
-      <span *ngIf="loading">Loading...</span>
+      <app-spinner *ngIf="loading"></app-spinner>
       <button *ngIf="!loading" class="submit-btn" type="submit" [disabled]="signupForm.invalid" [ngClass]="{'submit-btn': signupForm.valid}">Register</button>
     </div>
     <span *ngIf="signupForm.invalid && signupForm?.touched" class="warning-message">The form is not valid.</span>

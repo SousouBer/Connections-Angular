@@ -2,6 +2,7 @@
   <form [formGroup]="signinForm" (ngSubmit)="onSubmit()" class="login-form">
     <h2 class="signin-title">Connect with others!</h2>
     <div class="input-wrapper">
+      <span *ngIf="errorMessage" class="warning-message">An error occured: {{ errorMessage }}.</span>
       <label for="email">Email</label>
       <input formControlName="email" type="email" class="email-input" id="email" />
       <span *ngIf="email?.invalid && email?.touched" class="warning-message">Please, enter an email.</span>
@@ -12,7 +13,8 @@
       <span *ngIf="password?.invalid && password?.touched" class="warning-message">Please, enter a password.</span>
     </div>
     <div class="submit-btn-wrapper">
-      <button class="submit-btn" type="submit" [disabled]="signinForm.invalid"[ngClass]="{'submit-btn': signinForm.valid}">Log in</button>
+      <app-spinner *ngIf="isLoading"></app-spinner>
+      <button *ngIf="!isLoading" class="submit-btn" type="submit" [disabled]="signinForm.invalid"[ngClass]="{'submit-btn': signinForm.valid}">Log in</button>
     </div>
     <span *ngIf="signinForm?.invalid && signinForm?.touched" class="warning-message">The form is not valid yet.</span>
     <div class="signup-suggestion">

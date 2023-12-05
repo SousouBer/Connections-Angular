@@ -7,13 +7,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Observable, catchError, map, throwError } from 'rxjs';
-import { errorResponseInterface } from '../../models/register.interface';
+import { SpinnerComponent } from '../spinner.component';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, SpinnerComponent],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
 })
@@ -99,8 +98,6 @@ export class SignupComponent implements OnInit {
     return null;
   }
 
-  // Use a getter to conditionally render an error message.
-
   onSubmit() {
     this.loading = true;
     this.errorMessage = null;
@@ -112,11 +109,8 @@ export class SignupComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
-        const { message } = <errorResponseInterface>(error.error);
-
         this.email?.setErrors({ emailIsAlreadyTaken: true });
-
-        this.errorMessage = message;
+        this.errorMessage = error;
       }
     );
   }

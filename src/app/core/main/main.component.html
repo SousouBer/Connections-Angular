@@ -1,4 +1,19 @@
 <main class="main-section">
-  <app-signup></app-signup>
-  <!-- <app-signin></app-signin> -->
+  <!-- <app-signup></app-signup> -->
+  <app-signin></app-signin>
 </main>
+
+<!-- {
+  let errMessage = 'An unknown error occured. Try again.';
+  const { message } = <errorResponseInterface>err.error;
+
+  switch (err.error.type) {
+    case 'PrimaryDuplicationException':
+      errMessage = message;
+      break;
+    case 'NotFoundException':
+      errMessage = 'An error occured. ';
+  }
+
+  return throwError(() => errMessage);
+} -->
