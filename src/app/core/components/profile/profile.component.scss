@@ -96,3 +96,22 @@
 .username-input:focus {
   outline: none;
 }
+
+.warning-message {
+  font-size: 1rem;
+  color: red;
+  font-style: italic;
+  margin-top: 0.2rem;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+  border-radius: 5px;
+}
+
+.input-container {
+  display: flex;
+  // align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

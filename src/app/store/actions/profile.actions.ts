@@ -7,3 +7,8 @@ export const storeProfileToStore = createAction(
   '[Profile API] Store Profile To Store',
   props<{ profile: Profile }>()
 );
+
+export const changeUserName = createAction(
+  '[Profile Page] Change Username',
+  props< { name: string } >()
+)

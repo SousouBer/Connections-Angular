@@ -16,57 +16,70 @@ export interface Profile {
   };
 }
 
-// export interface ProfileState {
-//   profileDetails: {
-//     email: {
-//       S: string;
-//     };
-//     name: {
-//       S: string;
-//     };
-//     uid: {
-//       S: string;
-//     };
-//     createdAt: {
-//       S: string;
-//     };
-//   };
-// }
+export interface ProfileState {
+  profileDetails: {
+    email: {
+      S: string;
+    };
+    name: {
+      S: string;
+    };
+    uid: {
+      S: string;
+    };
+    createdAt: {
+      S: string;
+    };
+  };
+}
 
 export interface ProfileState {
-  email: {
-    S: string;
-  };
-  name: {
-    S: string;
-  };
-  uid: {
-    S: string;
-  };
-  createdAt: {
-    S: string;
+  profileDetails: {
+    email: {
+      S: string;
+    };
+    name: {
+      S: string;
+    };
+    uid: {
+      S: string;
+    };
+    createdAt: {
+      S: string;
+    };
   };
 }
 
 export const initialState: ProfileState = {
+  profileDetails: {
     email: {
-      S: '',
+      S: 'sosiko20@mail.ru',
     },
     name: {
-      S: '',
+      S: 'Soso',
     },
     uid: {
-      S: '',
+      S: 'asdasd',
     },
     createdAt: {
-      S: '',
+      S: 'Dec 24, 2004',
     },
+  },
 };
 
 export const profileReducers = createReducer(
   initialState,
   on(ProfileActions.storeProfileToStore, (state, { profile }) => ({
     ...state,
-    ...profile,
+    profileDetails: {...profile}
+  })),
+  on(ProfileActions.changeUserName, (state, { name }) => ({
+    ...state,
+    profileDetails: {
+      ...state.profileDetails,
+      name: {
+        S: name
+      }
+    }
   }))
 );

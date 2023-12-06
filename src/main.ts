@@ -21,7 +21,7 @@ bootstrapApplication(AppComponent, {
       useClass: AuthInterceptorService,
       multi: true,
     },
-    provideStore({profileInfo: profileReducers }),
+    provideStore({profileData: profileReducers }),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode
