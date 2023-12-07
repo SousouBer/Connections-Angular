@@ -8,6 +8,6 @@
   </div>
   <div class="profile-logout-container">
     <button *ngIf="isAuthenticated" class="profile-btn" (click)="onGetProfile()">View Your Profile</button>
-    <button *ngIf="isAuthenticated" class="logout-btn" (click)="logout()">Log Out</button>
+    <button *ngIf="isAuthenticated" [disabled]="logoutLoading" class="logout-btn" (click)="logout()">Log Out</button>
   </div>
 </header>

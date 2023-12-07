@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private registerUrl = 'https://tasks.app.rs.school/angular/registration';
   private authUrl = 'https://tasks.app.rs.school/angular/login';
+  private logOutUrl = 'https://tasks.app.rs.school/angular/logout';
 
   user = new BehaviorSubject<User | null>(null);
 
@@ -27,19 +28,41 @@ export class AuthService {
   }
 
   login(loginData: PostData) {
-    return this.http
-      .post<AuthResponse>(this.authUrl, loginData)
-      .pipe(catchError((err) => this.handleError(err)), tap(userData => {
-        const currentUser = new User(userData.uid, loginData.email, userData.token);
+    return this.http.post<AuthResponse>(this.authUrl, loginData).pipe(
+      catchError((err) => this.handleError(err)),
+      tap((userData) => {
+        const currentUser = new User(
+          userData.uid,
+          loginData.email,
+          userData.token
+        );
         this.user.next(currentUser);
 
         localStorage.setItem('userData', JSON.stringify(currentUser));
-      }));
+      })
+    );
+  }
+
+  autoLogin() {
+    const userData = JSON.parse(<string>localStorage.getItem('userData'));
+
+    if (!userData) {
+      return;
+    }
+
+    const loadedUser = new User(userData.uid, userData.email, userData._token);
+    this.user.next(loadedUser);
+
+    console.log(loadedUser);
   }
 
   logout(){
+    return this.http.delete(this.logOutUrl);
+  }
+
+  clearLocalStorage() {
+    localStorage.removeItem('userData');
     this.user.next(null);
-    this.router.navigate(['/signin']);
   }
 
   private handleError(errorReponse: HttpErrorResponse) {

@@ -5,11 +5,18 @@ import { Profile } from 'src/app/store/reducers/profile.reducers';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
+  private changeUsernameUrl = 'https://tasks.app.rs.school/angular/profile';
+  private getUserProfileUrl = 'https://tasks.app.rs.school/angular/profile';
+
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   getUserProfile() {
-    return this.http.get<Profile>(
-      'https://tasks.app.rs.school/angular/profile'
-    );
+    return this.http.get<Profile>(this.getUserProfileUrl);
+  }
+
+  updateUsername(updatedUsername: string){
+    return this.http.put(this.changeUsernameUrl, {
+      name: updatedUsername
+    });
   }
 }

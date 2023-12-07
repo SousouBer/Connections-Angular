@@ -6,12 +6,12 @@
     <div class="profile-details">
       <div class="name-container">
         <form
-          [formGroup]="usernameForm"
-          *ngIf="editUsername"
-          class="username-edit-form"
-          (ngSubmit)="onSave()"
+        [formGroup]="usernameForm"
+        *ngIf="editUsername"
+        class="username-edit-form"
+        (ngSubmit)="onSave()"
         >
-          <div class="input-container">
+        <div class="input-container">
             <input formControlName="name" class="username-input" type="text" />
             <span *ngIf="name?.invalid && name?.touched" class="warning-message"
               >Please, enter a valid first name.</span
@@ -26,8 +26,16 @@
             >
           </div>
           <div class="input-btns-container">
-            <button *ngIf="usernameForm.valid" class="save-username" type="submit">Save</button>
+            <app-spinner *ngIf="isLoading"></app-spinner>
             <button
+              *ngIf="!isLoading"
+              class="save-username"
+              type="submit"
+            >
+              Save
+            </button>
+            <button
+              *ngIf="!isLoading"
               (click)="cancelEdit()"
               class="cancel-username"
               type="button"
@@ -47,11 +55,12 @@
           Edit
         </button>
       </div>
+      <span *ngIf="showRequestMessage" class="request-message" [ngClass]="defineMessageColor === 'success' ? 'success' : 'failed'">{{ successOrFailedMessage }}</span>
       <span class="user-email"
         >Your E-mail: {{ (currentProfile$ | async)?.email?.S }}</span
       >
       <span class="user-id"
-        >Your id: {{ (currentProfile$ | async)?.uid?.S }}</span
+        >Your ID: {{ (currentProfile$ | async)?.uid?.S }}</span
       >
       <span class="user-email"
         >Account creation time:

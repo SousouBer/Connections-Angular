@@ -19,3 +19,10 @@ export const getProfileName = createSelector(
     return state.profileDetails.name.S;
   }
 )
+
+export const requestBoolean = createSelector(
+  profile,
+  (state: ProfileState) => {
+    return state.requestWasSentOnce;
+  }
+)

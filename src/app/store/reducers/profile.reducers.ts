@@ -30,48 +30,34 @@ export interface ProfileState {
     createdAt: {
       S: string;
     };
-  };
-}
-
-export interface ProfileState {
-  profileDetails: {
-    email: {
-      S: string;
-    };
-    name: {
-      S: string;
-    };
-    uid: {
-      S: string;
-    };
-    createdAt: {
-      S: string;
-    };
-  };
+  },
+  requestWasSentOnce: boolean;
 }
 
 export const initialState: ProfileState = {
   profileDetails: {
     email: {
-      S: 'sosiko20@mail.ru',
+      S: '',
     },
     name: {
-      S: 'Soso',
+      S: '',
     },
     uid: {
-      S: 'asdasd',
+      S: '',
     },
     createdAt: {
-      S: 'Dec 24, 2004',
+      S: '',
     },
   },
+  requestWasSentOnce: false
 };
 
 export const profileReducers = createReducer(
   initialState,
   on(ProfileActions.storeProfileToStore, (state, { profile }) => ({
     ...state,
-    profileDetails: {...profile}
+    profileDetails: {...profile},
+    requestWasSentOnce: true
   })),
   on(ProfileActions.changeUserName, (state, { name }) => ({
     ...state,
