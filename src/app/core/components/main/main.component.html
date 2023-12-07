@@ -1,20 +1,32 @@
 <main class="main-section">
-  <!-- <app-signup></app-signup> -->
-  <!-- <app-signin></app-signin> -->
-  <!-- <router-outlet></router-outlet> -->
+  <section class="group-section">
+    <div class="heading-and-btn">
+      <h3 class="group-heading">All Available Groups</h3>
+      <button class="create-btn">Create A Group</button>
+      <button
+        class="update-list-btn"
+        (click)="updateList()"
+      >
+        Update
+      </button>
+      <div *ngIf="showTimer" class="timer-container">
+        <div class="timer-img-container">
+          <img [src]="'assets/imgs/timer-logo.png'" alt="Timer Logo" />
+        </div>
+        <span class="countDown">Remaining seconds: {{ remainingSeconds }}</span>
+      </div>
+    </div>
+    <span class="group-count">Total Count: 0</span>
+    <div class="group-items-container">
+      <a class="group-link" href="#">
+        <app-group></app-group>
+        <app-group></app-group>
+        <app-group></app-group>
+        <app-group></app-group>
+        <app-group></app-group>
+        <app-group></app-group>
+      </a>
+    </div>
+  </section>
+  <section class="people-section">POEPLE SECTION</section>
 </main>
-
-<!-- {
-  let errMessage = 'An unknown error occured. Try again.';
-  const { message } = <errorResponseInterface>err.error;
-
-  switch (err.error.type) {
-    case 'PrimaryDuplicationException':
-      errMessage = message;
-      break;
-    case 'NotFoundException':
-      errMessage = 'An error occured. ';
-  }
-
-  return throwError(() => errMessage);
-} -->
