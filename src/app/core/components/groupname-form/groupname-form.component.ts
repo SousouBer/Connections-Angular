@@ -61,6 +61,9 @@ export class GroupnameFormComponent implements OnInit {
   // Submitting the form and sending the group name to the server
   onSubmit() {
     const groupName = this.groupForm.value.name;
+
+    this.groupPeopleService.addGroupToStore(groupName);
+
     this.dataStorageService.createGroup(groupName).subscribe(val => console.log(val, groupName))
     console.log(groupName);
     this.groupForm.reset();

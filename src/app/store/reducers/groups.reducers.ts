@@ -9,13 +9,22 @@ export interface GroupsState {
 export const initialState: GroupsState = {
   groupsData: {
     Count: '',
-    Items: []
-  }
-}
+    Items: [],
+  },
+};
 
 export const groupReducers = createReducer(
   initialState,
   on(GroupActions.storeGroups, (state, { groups }) => ({
-    groupsData: groups
+    groupsData: groups,
+  })),
+  on(GroupActions.addCreatedGroupToStore, (state, { group }) => ({
+    ...state,
+ 
+    groupsData: {
+      ...state.groupsData,
+      Count: (+state.groupsData.Count + 1).toString(),
+      Items: [group, ...state.groupsData.Items],
+    },
   }))
-)
+);

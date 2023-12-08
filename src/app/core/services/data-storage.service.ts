@@ -29,6 +29,7 @@ export class DataStorageService {
     return this.http.get(this.getGroupsUrl);
   }
 
+  // Create a group with a proper name.
   createGroup(name: string){
     return this.http.post(this.createNewGroup, {
         name: name

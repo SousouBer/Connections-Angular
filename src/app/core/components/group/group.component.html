@@ -8,7 +8,6 @@
       />
     </div>
     <div class="group-details">
-      <h4>{{ groupItem.createdBy.S }}'s Group</h4>
       <span class="group-description">{{ groupItem.name.S }}</span>
     </div>
     <button *ngIf="groupItem.createdBy.S === 'Soso'" class="remove-group-btn">Delete</button>
