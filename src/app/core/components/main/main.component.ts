@@ -6,6 +6,7 @@ import { SignupComponent } from 'src/app/auth/components/signup/signup.component
 import { GroupComponent } from '../group/group.component';
 import { Observable, Subscription, interval, map, take, takeWhile } from 'rxjs';
 import { GroupnameFormComponent } from '../groupname-form/groupname-form.component';
+import { GroupSectionComponent } from '../group-section/group-section.component';
 
 @Component({
   selector: 'app-main',
@@ -14,10 +15,9 @@ import { GroupnameFormComponent } from '../groupname-form/groupname-form.compone
     CommonModule,
     SigninComponent,
     SignupComponent,
-    GroupComponent,
     RouterModule,
     RouterOutlet,
-    GroupnameFormComponent
+    GroupSectionComponent
   ],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
@@ -28,8 +28,6 @@ export class MainComponent implements OnInit{
   private readonly countdownSeconds = 5;
   remainingSeconds = 60;
   showTimer = false;
-
-  showModalWindow = false;
 
   constructor() {}
 
@@ -56,11 +54,4 @@ export class MainComponent implements OnInit{
       });
   }
 
-  hideOrShowModalForm(){
-    this.showModalWindow = !this.showModalWindow;
-  }
-
-  stopPropagation(e: Event){
-    e.stopPropagation();
-  }
 }

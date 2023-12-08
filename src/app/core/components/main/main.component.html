@@ -1,40 +1,6 @@
 <main class="main-section">
-  <div
-    *ngIf="showModalWindow"
-    class="modal-background"
-    (click)="hideOrShowModalForm()"
-  >
-    <app-groupname-form (click)="stopPropagation($event)"></app-groupname-form>
-  </div>
   <section class="group-section">
-    <div class="heading-and-btn">
-      <h3 class="group-heading">All Available Groups</h3>
-      <button class="create-btn" (click)="hideOrShowModalForm()">
-        Create A Group
-      </button>
-      <button
-        [disabled]="showTimer"
-        class="update-list-btn"
-        (click)="updateList()"
-      >
-        Update
-      </button>
-      <div *ngIf="showTimer" class="timer-container">
-        <div class="timer-img-container">
-          <img [src]="'assets/imgs/timer-logo.png'" alt="Timer Logo" />
-        </div>
-        <span class="countDown">Remaining seconds: {{ remainingSeconds }}</span>
-      </div>
-    </div>
-    <span class="group-count">Total Count: 0</span>
-    <div class="group-items-container">
-      <app-group></app-group>
-      <app-group></app-group>
-      <app-group></app-group>
-      <app-group></app-group>
-      <app-group></app-group>
-      <app-group></app-group>
-    </div>
+    <app-group-section></app-group-section>
   </section>
   <section class="people-section">POEPLE SECTION</section>
 </main>
