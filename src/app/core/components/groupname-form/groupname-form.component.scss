@@ -7,13 +7,14 @@
   padding: 3rem 6rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 40rem;
+  border-radius: 5px;
 }
 
 .name-input-container {
   display: flex;
-  // align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin-bottom: 1rem;
 }
 
 .group-form label {
@@ -25,7 +26,7 @@
   margin-top: 1rem;
   font-size: 1.5rem;
   padding: 0.2rem 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.2rem;
   width: 30rem;
 }
 
@@ -48,6 +49,11 @@
   margin-right: 1rem;
 }
 
+.create-btn:disabled {
+  cursor: auto;
+  background-color: #5f8de7;
+}
+
 .create-btn:hover {
   background-color: #5f8de7;
 }
@@ -60,3 +66,13 @@
   background-color: #ff3333;
 }
 
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+  border-radius: 5px;
+}
+
+.warning-message {
+  font-size: 1rem;
+  color: red;
+  font-style: italic;
+}

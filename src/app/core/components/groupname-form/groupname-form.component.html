@@ -1,11 +1,14 @@
 <div class="form-container">
-  <form class="group-form">
+  <form [formGroup]="groupForm" (ngSubmit)="onSubmit()" class="group-form">
     <div class="name-input-container">
       <label for="name">Enter A Group Name</label>
-      <input class="group-input" type="text" id="name">
+      <input formControlName="name" class="group-input" type="text" id="name">
+      <span *ngIf="name?.errors?.['maxlength']" class="warning-message">Input is more than 30 symbols.</span>
+      <span *ngIf="name?.errors?.['onlyLettersAndLettersAllowed']" class="warning-message">Only letters and spaces are allowed.</span>
+      <span *ngIf="name?.invalid && name?.touched" class="warning-message">Enter a valid name of the group.</span>
     </div>
     <div class="btn-contain">
-      <button class="create-btn" type="submit">Create A Group</button>
+      <button class="create-btn" type="submit" [disabled]="groupForm.invalid">Create A Group</button>
       <button class="cancel-btn" type="button" (click)="hideModal()">Cancel</button>
     </div>
   </form>

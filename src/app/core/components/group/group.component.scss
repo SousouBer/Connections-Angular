@@ -1,9 +1,13 @@
 .group-container {
   background-color: #fff;
   padding: 1rem 2rem;
-  width: 50rem;
+  width: 60rem;
   transition: all 0.3s ease;
   margin-bottom: 2rem;
+}
+
+.group-description {
+  font-size: 1.5rem;
 }
 
 .group-container:hover {
