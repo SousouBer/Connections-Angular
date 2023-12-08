@@ -1,9 +1,19 @@
 <main class="main-section">
+  <div
+    *ngIf="showModalWindow"
+    class="modal-background"
+    (click)="hideOrShowModalForm()"
+  >
+    <app-groupname-form (click)="stopPropagation($event)"></app-groupname-form>
+  </div>
   <section class="group-section">
     <div class="heading-and-btn">
       <h3 class="group-heading">All Available Groups</h3>
-      <button class="create-btn">Create A Group</button>
+      <button class="create-btn" (click)="hideOrShowModalForm()">
+        Create A Group
+      </button>
       <button
+        [disabled]="showTimer"
         class="update-list-btn"
         (click)="updateList()"
       >
@@ -18,14 +28,12 @@
     </div>
     <span class="group-count">Total Count: 0</span>
     <div class="group-items-container">
-      <a class="group-link" href="#">
-        <app-group></app-group>
-        <app-group></app-group>
-        <app-group></app-group>
-        <app-group></app-group>
-        <app-group></app-group>
-        <app-group></app-group>
-      </a>
+      <app-group></app-group>
+      <app-group></app-group>
+      <app-group></app-group>
+      <app-group></app-group>
+      <app-group></app-group>
+      <app-group></app-group>
     </div>
   </section>
   <section class="people-section">POEPLE SECTION</section>
