@@ -8,12 +8,12 @@
       />
     </div>
     <div class="group-details">
-      <h4>Giorgi's Group</h4>
-      <span class="group-description">My name is Soso Beriashvilihl</span>
+      <h4>{{ groupItem.createdBy.S }}'s Group</h4>
+      <span class="group-description">{{ groupItem.name.S }}</span>
     </div>
-    <button class="remove-group-btn">Delete</button>
+    <button *ngIf="groupItem.createdBy.S === 'Soso'" class="remove-group-btn">Delete</button>
   </div>
   <div class="group-date-container">
-    <span class="group-date">Created at: Dec 04, 2023</span>
+    <span class="group-date">Created at: {{ groupItem.createdAt.S | date }}</span>
   </div>
 </div>

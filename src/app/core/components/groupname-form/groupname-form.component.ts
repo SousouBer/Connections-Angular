@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { DataStorageService } from '../../services/data-storage.service';
 
 @Component({
   selector: 'app-groupname-form',
@@ -18,7 +19,7 @@ import {
 export class GroupnameFormComponent implements OnInit {
   groupForm!: FormGroup;
 
-  constructor(private groupPeopleService: GroupPeopleService) {}
+  constructor(private groupPeopleService: GroupPeopleService, private dataStorageService: DataStorageService) {}
 
   ngOnInit(): void {
     this.groupForm = new FormGroup({
@@ -59,7 +60,9 @@ export class GroupnameFormComponent implements OnInit {
 
   // Submitting the form and sending the group name to the server
   onSubmit() {
-    console.log(this.groupForm.value);
+    const groupName = this.groupForm.value.name;
+    this.dataStorageService.createGroup(groupName).subscribe(val => console.log(val, groupName))
+    console.log(groupName);
     this.groupForm.reset();
     this.hideModal();
   }
