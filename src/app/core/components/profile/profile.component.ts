@@ -25,7 +25,7 @@ import { DataStorageService } from '../../services/data-storage.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit {
   currentUsernameSub: Subscription;
   updateUsernameSub!: Subscription;
   usernameForm!: FormGroup;
@@ -127,8 +127,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.currentUsernameSub.unsubscribe();
-    this.updateUsernameSub.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   this.currentUsernameSub.unsubscribe();
+  //   this.updateUsernameSub.unsubscribe();
+  // }
 }

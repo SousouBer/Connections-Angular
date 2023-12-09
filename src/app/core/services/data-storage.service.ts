@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Profile } from 'src/app/store/reducers/profile.reducers';
 import { GroupId } from '../models/group.models';
+import { catchError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {

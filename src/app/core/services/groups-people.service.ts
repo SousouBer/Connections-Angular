@@ -1,19 +1,49 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { addCreatedGroupToStore } from 'src/app/store/actions/groups.actions';
+import { BehaviorSubject, Subject, interval, map, take, takeWhile } from 'rxjs';
+import { addCreatedGroupToStore, removeGroup } from 'src/app/store/actions/groups.actions';
 import { AppState } from 'src/app/store/app.state';
+import { DataStorageService } from './data-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GroupPeopleService {
+  private readonly countdownSeconds = 60;
+
   showModalBoolean = new Subject<boolean>();
 
   showRequestMessage = new Subject<boolean>();
   requestResultMessage = new Subject<String>()
 
-  constructor(private store: Store<AppState>) {}
+  // Save the GroupID value to remove it from the server.
+  showCofirmationModal = new Subject<boolean>();
+  groupId = '';
+
+  showTimerBoolean = new BehaviorSubject<boolean>(false);
+  remainingSeconds = new BehaviorSubject<number>(60);
+
+  constructor(private store: Store<AppState>, private dataStorageService: DataStorageService) {}
+
+  // Manage the timer state from another component. In this case, in the group component.
+  showTimer(value: boolean){
+    this.showTimerBoolean.next(value);
+  }
+
+  startTimer() {
+    interval(1000)
+      .pipe(
+        take(this.countdownSeconds),
+        map((value) => this.countdownSeconds - 1 - value),
+        takeWhile((value) => value >= -1)
+      )
+      .subscribe((result) => {
+        if (result === 0) {
+          this.showTimer(false);
+        }
+        this.remainingSeconds.next(result);
+      });
+  }
 
   showOrHideModalWindow(value: boolean) {
     this.showModalBoolean.next(value);
@@ -27,6 +57,20 @@ export class GroupPeopleService {
     }, 2000);
   }
 
+  showOrHideConfirmationModal(val: boolean){
+    this.showCofirmationModal.next(val);
+  }
+
+  saveGroupId(groupID: string){
+    this.groupId = groupID;
+  }
+
+  // Delete the group from the server using the groupID provided from group component.
+  deleteGroup(){
+    this.dataStorageService.deleteGroup(this.groupId).subscribe(
+      val => this.store.dispatch(removeGroup({ groupID: this.groupId }))
+    )
+  }
 
   addGroupToStore(name: string, groupId: string) {
     // Create a group for the UI.

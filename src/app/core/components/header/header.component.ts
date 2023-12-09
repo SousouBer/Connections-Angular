@@ -56,7 +56,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onGetProfile() {
-    this.router.navigate(['/profile']);
     if (!this.firstRequestSent) {
       this.store.dispatch(ProfileActions.getProfileFromAPI());
     }

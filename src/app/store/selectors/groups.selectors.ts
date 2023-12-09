@@ -13,3 +13,8 @@ export const groupItems = createSelector(
   getGroupsState,
   (state: GroupsState) => state.groupsData.Items
 )
+
+export const firstRequestValue = createSelector(
+  getGroupsState,
+  (state: GroupsState) => state.firstRequestMade
+)

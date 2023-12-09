@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GroupComponent } from '../group/group.component';
 import { GroupnameFormComponent } from '../groupname-form/groupname-form.component';
-import { Observable, Subscription, interval, map, take, takeWhile } from 'rxjs';
+import { Observable } from 'rxjs';
 import { GroupPeopleService } from '../../services/groups-people.service';
 import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
 import { getGroups } from 'src/app/store/actions/groups.actions';
 import { Group } from '../../models/group.models';
 import {
+  firstRequestValue,
   groupItems,
   totalCount,
 } from 'src/app/store/selectors/groups.selectors';
@@ -21,20 +22,26 @@ import {
   styleUrls: ['./group-section.component.scss'],
 })
 export class GroupSectionComponent implements OnInit {
-  countDown!: Subscription;
-
   // A stream of group items.
   groupItems$!: Observable<Group[]>;
   groupTotalCount$!: Observable<string>;
 
-  private readonly countdownSeconds = 5;
-  remainingSeconds = 60;
-  showTimer = false;
-  showModalWindow = false;
+  // Timer and seconds for the UI.
+  showTimer$!: Observable<boolean>;
+  remainingSeconds$!: Observable<number>;
+
   // Show or hide message
   showResultMessage = false;
+  showModalWindow = false;
 
-  requestResultMessage = 'List updated Successfully.';
+
+  // Boolean value for showing confirmation modal window when deleting a group.
+  showConfirmationDays = false;
+
+  requestResultMessage = '';
+
+  // Boolean to see if the first request was made to update the list when a user visits the website for the first time.
+  firstRequest = false;
 
   constructor(
     private groupPeopleService: GroupPeopleService,
@@ -42,9 +49,20 @@ export class GroupSectionComponent implements OnInit {
   ) {
     this.groupItems$ = this.store.select(groupItems);
     this.groupTotalCount$ = this.store.select(totalCount);
+    this.store
+      .select(firstRequestValue)
+      .subscribe((value) => (this.firstRequest = value));
   }
 
   ngOnInit(): void {
+    // Update the list once when the user first visits the page.
+    if (!this.firstRequest) {
+      this.store.dispatch(getGroups());
+    }
+
+    this.showTimer$ = this.groupPeopleService.showTimerBoolean;
+    this.remainingSeconds$ = this.groupPeopleService.remainingSeconds;
+
     this.groupPeopleService.showModalBoolean.subscribe(
       (val) => (this.showModalWindow = val)
     );
@@ -56,27 +74,16 @@ export class GroupSectionComponent implements OnInit {
     this.groupPeopleService.requestResultMessage.subscribe(
       (val) => (this.requestResultMessage = val as string)
     );
+
+    this.groupPeopleService.showCofirmationModal.subscribe(
+      (val) => (this.showConfirmationDays = val)
+    );
   }
 
   updateList() {
     this.store.dispatch(getGroups());
-    this.showTimer = true;
-    this.startTimer();
-  }
-
-  startTimer() {
-    this.countDown = interval(1000)
-      .pipe(
-        take(this.countdownSeconds),
-        map((value) => this.countdownSeconds - 1 - value),
-        takeWhile((value) => value >= -1)
-      )
-      .subscribe((result) => {
-        if (result === 0) {
-          this.showTimer = false;
-        }
-        this.remainingSeconds = result;
-      });
+    this.groupPeopleService.showTimer(true);
+    this.groupPeopleService.startTimer();
   }
 
   showModal() {
@@ -89,5 +96,14 @@ export class GroupSectionComponent implements OnInit {
 
   stopPropagation(e: Event) {
     e.stopPropagation();
+  }
+
+  deleteSelectedGroup() {
+    this.groupPeopleService.deleteGroup();
+    this.groupPeopleService.showOrHideConfirmationModal(false);
+  }
+
+  candelDeletion() {
+    this.groupPeopleService.showOrHideConfirmationModal(false);
   }
 }

@@ -127,3 +127,50 @@
   font-weight: 700;
   color: black;
 }
+
+.confirm-deletion {
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem 3rem;
+}
+
+.confirm-deletion span {
+  font-size: 2rem;
+}
+
+.btns {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btn-confirm,
+.btn-cancel {
+  cursor: pointer;
+  border: none;
+  padding: 0.2rem 1rem;
+  font-family: inherit;
+  font-size: 1.5rem;
+  color: #fff;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+}
+
+.btn-confirm {
+  margin-right: 1rem;
+  background-color:#008000;
+}
+
+.btn-confirm:hover {
+  margin-right: 1rem;
+  background-color:#339933;
+}
+
+.btn-cancel {
+  background-color: #4d80e4;
+}
+
+.btn-cancel:hover {
+  background-color:#5f8de7;
+}

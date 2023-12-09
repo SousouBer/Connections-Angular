@@ -4,6 +4,7 @@ import * as GroupActions from '../actions/groups.actions';
 
 export interface GroupsState {
   groupsData: Groups;
+  firstRequestMade: boolean;
 }
 
 export const initialState: GroupsState = {
@@ -11,12 +12,14 @@ export const initialState: GroupsState = {
     Count: '',
     Items: [],
   },
+  firstRequestMade: false
 };
 
 export const groupReducers = createReducer(
   initialState,
   on(GroupActions.storeGroups, (state, { groups }) => ({
     groupsData: groups,
+    firstRequestMade: true
   })),
   on(GroupActions.addCreatedGroupToStore, (state, { group }) => ({
     ...state,
