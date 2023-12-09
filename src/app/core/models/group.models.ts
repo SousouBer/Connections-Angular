@@ -19,3 +19,8 @@ export interface Group {
     S: string;
   };
 }
+
+// Interface for getting an individual group Id.
+export interface GroupId {
+  groupID: string;
+}

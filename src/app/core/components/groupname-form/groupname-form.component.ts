@@ -19,7 +19,10 @@ import { DataStorageService } from '../../services/data-storage.service';
 export class GroupnameFormComponent implements OnInit {
   groupForm!: FormGroup;
 
-  constructor(private groupPeopleService: GroupPeopleService, private dataStorageService: DataStorageService) {}
+  constructor(
+    private groupPeopleService: GroupPeopleService,
+    private dataStorageService: DataStorageService
+  ) {}
 
   ngOnInit(): void {
     this.groupForm = new FormGroup({
@@ -62,10 +65,11 @@ export class GroupnameFormComponent implements OnInit {
   onSubmit() {
     const groupName = this.groupForm.value.name;
 
-    this.groupPeopleService.addGroupToStore(groupName);
+    this.dataStorageService.createGroup(groupName).subscribe((val) => {
+      console.log(val);
+      this.groupPeopleService.addGroupToStore(groupName, val.groupID);
+    });
 
-    this.dataStorageService.createGroup(groupName).subscribe(val => console.log(val, groupName))
-    console.log(groupName);
     this.groupForm.reset();
     this.hideModal();
   }

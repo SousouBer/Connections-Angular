@@ -12,3 +12,8 @@ export const addCreatedGroupToStore = createAction(
   '[Group Section] Add Group To Store',
   props<{ group: Group }>()
 );
+
+export const removeGroup = createAction(
+  '[Groups Section] Remove Group',
+  props<{ groupID: string } >()
+)

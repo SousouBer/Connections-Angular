@@ -20,11 +20,24 @@ export const groupReducers = createReducer(
   })),
   on(GroupActions.addCreatedGroupToStore, (state, { group }) => ({
     ...state,
- 
     groupsData: {
       ...state.groupsData,
       Count: (+state.groupsData.Count + 1).toString(),
       Items: [group, ...state.groupsData.Items],
     },
-  }))
+  })),
+  on(GroupActions.removeGroup, (state, { groupID }) => {
+    const filteredItems = state.groupsData.Items.filter(
+      (item) => item.id.S !== groupID
+    );
+
+    return {
+      ...state,
+      groupsData: {
+        ...state.groupsData,
+        Count: (+state.groupsData.Count - 1).toString(),
+        Items: filteredItems,
+      },
+    };
+  })
 );

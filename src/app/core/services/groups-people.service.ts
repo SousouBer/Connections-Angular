@@ -10,17 +10,24 @@ import { AppState } from 'src/app/store/app.state';
 export class GroupPeopleService {
   showModalBoolean = new Subject<boolean>();
 
-  constructor(private store: Store<AppState>){}
+  constructor(private store: Store<AppState>) {}
 
   showOrHideModalWindow(value: boolean) {
     this.showModalBoolean.next(value);
   }
 
-  addGroupToStore(name: string) {
+  addGroupToStore(name: string, groupId: string) {
     // Create a group for the UI.
+    const user = JSON.parse(<string>localStorage.getItem('userData'));
+    let userId = '';
+
+    if (user) {
+      userId = user.uid;
+    }
+
     const createdGroup = {
       id: {
-        S: Math.random().toString(),
+        S: groupId,
       },
       name: {
         S: name,
@@ -29,7 +36,7 @@ export class GroupPeopleService {
         S: new Date().toString(),
       },
       createdBy: {
-        S: 'You',
+        S: userId,
       },
     };
 
