@@ -5,6 +5,9 @@
 >
   <app-groupname-form (click)="stopPropagation($event)"></app-groupname-form>
 </div>
+<div *ngIf="showResultMessage" class="message-container">
+  <span class="req-result-message">{{ requestResultMessage }}</span>
+</div>
 <section class="group-section-container">
   <div class="heading-and-btn">
     <h3 class="group-heading">All Available Groups</h3>

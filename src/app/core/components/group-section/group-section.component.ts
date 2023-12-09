@@ -8,7 +8,10 @@ import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
 import { getGroups } from 'src/app/store/actions/groups.actions';
 import { Group } from '../../models/group.models';
-import { groupItems, totalCount } from 'src/app/store/selectors/groups.selectors';
+import {
+  groupItems,
+  totalCount,
+} from 'src/app/store/selectors/groups.selectors';
 
 @Component({
   selector: 'app-group-section',
@@ -28,6 +31,10 @@ export class GroupSectionComponent implements OnInit {
   remainingSeconds = 60;
   showTimer = false;
   showModalWindow = false;
+  // Show or hide message
+  showResultMessage = false;
+
+  requestResultMessage = 'List updated Successfully.';
 
   constructor(
     private groupPeopleService: GroupPeopleService,
@@ -40,6 +47,14 @@ export class GroupSectionComponent implements OnInit {
   ngOnInit(): void {
     this.groupPeopleService.showModalBoolean.subscribe(
       (val) => (this.showModalWindow = val)
+    );
+
+    this.groupPeopleService.showRequestMessage.subscribe(
+      (val) => (this.showResultMessage = val)
+    );
+
+    this.groupPeopleService.requestResultMessage.subscribe(
+      (val) => (this.requestResultMessage = val as string)
     );
   }
 
@@ -61,7 +76,6 @@ export class GroupSectionComponent implements OnInit {
           this.showTimer = false;
         }
         this.remainingSeconds = result;
-        console.log(result);
       });
   }
 

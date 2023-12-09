@@ -51,9 +51,9 @@ export class SigninComponent implements OnInit {
         this.success = true;
         this.signinForm.reset();
         setTimeout(() => {
-          this.router.navigate(['/main'])
+          this.router.navigate(['/']);
           this.success = false;
-        },2000)
+        }, 2000);
       },
       (error) => {
         this.errorMessage = error;

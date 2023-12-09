@@ -24,12 +24,12 @@ import { AuthService } from './auth/services/auth.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router){}
+  constructor(private authService: AuthService, private router: Router) {}
 
   title = 'connections-app';
 
   ngOnInit(): void {
     this.authService.autoLogin();
-    this.router.navigate(['/main']);
+    this.router.navigate(['/']);
   }
 }

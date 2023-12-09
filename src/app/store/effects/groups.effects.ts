@@ -5,12 +5,14 @@ import { map, switchMap } from 'rxjs';
 import { DataStorageService } from 'src/app/core/services/data-storage.service';
 import * as GroupActions from '../actions/groups.actions';
 import { Groups } from 'src/app/core/models/group.models';
+import { GroupPeopleService } from 'src/app/core/services/groups-people.service';
 
 @Injectable()
 export class GroupsEffects {
   constructor(
     private actions$: Actions,
-    private dataStorage: DataStorageService
+    private dataStorage: DataStorageService,
+    private groupPeopleService: GroupPeopleService
   ) {}
 
   getGroupsDetails = createEffect(() =>
@@ -18,11 +20,14 @@ export class GroupsEffects {
       ofType(GroupActions.getGroups),
       switchMap(() =>
         this.dataStorage.getGroupsList().pipe(
-          map((groupsData) =>
-          GroupActions.storeGroups({
-              groups: groupsData as Groups
-            })
-          )
+          map((groupsData) => {
+            this.groupPeopleService.requestmessage(
+              'List updated successfully!'
+            );
+              return GroupActions.storeGroups({
+              groups: groupsData as Groups,
+            });
+          })
         )
       )
     )

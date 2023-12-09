@@ -17,12 +17,12 @@ import { GroupSectionComponent } from '../group-section/group-section.component'
     SignupComponent,
     RouterModule,
     RouterOutlet,
-    GroupSectionComponent
+    GroupSectionComponent,
   ],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent implements OnInit{
+export class MainComponent implements OnInit {
   countDown!: Subscription;
 
   private readonly countdownSeconds = 5;
@@ -43,7 +43,7 @@ export class MainComponent implements OnInit{
       .pipe(
         take(this.countdownSeconds),
         map((value) => this.countdownSeconds - 1 - value),
-        takeWhile(value => value >= -1)
+        takeWhile((value) => value >= -1)
       )
       .subscribe((result) => {
         if (result === 0) {
@@ -53,5 +53,4 @@ export class MainComponent implements OnInit{
         console.log(result);
       });
   }
-
 }

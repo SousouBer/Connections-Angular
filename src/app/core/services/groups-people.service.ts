@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { addCreatedGroupToStore } from 'src/app/store/actions/groups.actions';
 import { AppState } from 'src/app/store/app.state';
 
@@ -10,11 +10,23 @@ import { AppState } from 'src/app/store/app.state';
 export class GroupPeopleService {
   showModalBoolean = new Subject<boolean>();
 
+  showRequestMessage = new Subject<boolean>();
+  requestResultMessage = new Subject<String>()
+
   constructor(private store: Store<AppState>) {}
 
   showOrHideModalWindow(value: boolean) {
     this.showModalBoolean.next(value);
   }
+
+  requestmessage(value: string){
+    this.requestResultMessage.next(value);
+    this.showRequestMessage.next(true);
+    setTimeout(() => {
+      this.showRequestMessage.next(false);
+    }, 2000);
+  }
+
 
   addGroupToStore(name: string, groupId: string) {
     // Create a group for the UI.

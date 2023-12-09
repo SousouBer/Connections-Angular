@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'main',
+    path: '',
     loadComponent: () =>
       import('./core/components/main/main.component').then(
         (mod) => mod.MainComponent
@@ -23,6 +23,10 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'profile', loadComponent: () => import('./core/components/profile/profile.component').then(mod => mod.ProfileComponent)
-  }
+    path: 'profile',
+    loadComponent: () =>
+      import('./core/components/profile/profile.component').then(
+        (mod) => mod.ProfileComponent
+      ),
+  },
 ];
