@@ -1,7 +1,9 @@
 import { GroupsState } from "./reducers/groups.reducers";
+import { ParticipantsState } from "./reducers/participants.reducers";
 import { ProfileState } from "./reducers/profile.reducers";
 
 export interface AppState {
   profileData: ProfileState;
-  groupsData: GroupsState
+  groupsData: GroupsState;
+  participantsData: ParticipantsState
 }

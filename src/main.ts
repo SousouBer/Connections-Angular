@@ -13,6 +13,8 @@ import { provideEffects } from '@ngrx/effects';
 import { ProfileEffects } from './app/store/effects/profile.effects';
 import { groupReducers } from './app/store/reducers/groups.reducers';
 import { GroupsEffects } from './app/store/effects/groups.effects';
+import { participantsReducers } from './app/store/reducers/participants.reducers';
+import { ParticipantsEffects } from './app/store/effects/participants.effects';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -23,12 +25,12 @@ bootstrapApplication(AppComponent, {
       useClass: AuthInterceptorService,
       multi: true,
     },
-    provideStore({profileData: profileReducers, groupsData: groupReducers}),
+    provideStore({profileData: profileReducers, groupsData: groupReducers, participantsData: participantsReducers}),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode
       autoPause: true, // Pauses recording actions and state changes when the extension window is not open
     }),
-    provideEffects([ProfileEffects, GroupsEffects]),
+    provideEffects([ProfileEffects, GroupsEffects, ParticipantsEffects]),
   ],
 });

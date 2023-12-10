@@ -1,4 +1,4 @@
-<div class="participant">
-  <h5 class="participant-name">Sofia</h5>
-  <span class="conversation-text">Click to make individual conversation</span>
+<div class="participant" (click)="makeConversation()">
+  <h5 class="participant-name">{{ participantItem.name.S }}</h5>
+  <span class="conversation-text">{{ participantItem.uid.S }}</span>
 </div>

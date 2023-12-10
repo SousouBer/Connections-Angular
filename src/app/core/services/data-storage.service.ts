@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { Profile } from 'src/app/store/reducers/profile.reducers';
 import { GroupId } from '../models/group.models';
 import { catchError } from 'rxjs';
+import { ParticipantsData } from '../models/participants.models';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -11,7 +12,10 @@ export class DataStorageService {
   private getUserProfileUrl = 'https://tasks.app.rs.school/angular/profile';
   private getGroupsUrl = 'https://tasks.app.rs.school/angular/groups/list';
   private createNewGroup = 'https://tasks.app.rs.school/angular/groups/create';
-  private removeGroupUrl = 'https://tasks.app.rs.school/angular/groups/delete?groupID'
+  private removeGroupUrl = 'https://tasks.app.rs.school/angular/groups/delete?groupID';
+  private getParticipantsUrl = 'https://tasks.app.rs.school/angular/users';
+  private getActiveConversations = 'https://tasks.app.rs.school/angular/conversations/list';
+  private createConversationUrl = 'https://tasks.app.rs.school/angular/conversations/create';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -42,5 +46,22 @@ export class DataStorageService {
   // Remove the group.
   deleteGroup(groupID: string){
     return this.http.delete(`${this.removeGroupUrl}=${groupID}`);
+  }
+
+  //Get the list of all participants.
+  getParticipantsList(){
+    return this.http.get<ParticipantsData>(this.getParticipantsUrl).pipe(catchError((err) => err));
+  }
+
+  //Get conversations' list of a current user.
+  getConversations(){
+    return this.http.get(this.getActiveConversations);
+  }
+
+  // Create conversation with a user.
+  createUserConversation(companionID: string){
+    return this.http.post(this.createConversationUrl, {
+      companion: companionID
+    })
   }
 }

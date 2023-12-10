@@ -19,31 +19,11 @@
   </div>
   <div class="participant-info">
     <span>You have already created a conversation with a participant with the dark background</span>
+    <p>Total Count: {{ participantTotalCount$ | async }}</p>
   </div>
   <div class="participants-container">
-    <a class="participant-link" href="#">
-      <app-participant></app-participant>
-    </a>
-    <a class="participant-link" href="#">
-      <app-participant></app-participant>
-    </a>
-    <a class="participant-link" href="#">
-      <app-participant></app-participant>
-    </a>
-    <a class="participant-link" href="#">
-      <app-participant></app-participant>
-    </a>
-    <a class="participant-link" href="#">
-      <app-participant></app-participant>
-    </a>
-    <a class="participant-link" href="#">
-      <app-participant></app-participant>
-    </a>
-    <a class="participant-link" href="#">
-      <app-participant></app-participant>
-    </a>
-    <a class="participant-link" href="#">
-      <app-participant></app-participant>
+    <a *ngFor="let participant of participantItems$ | async" class="participant-link" href="#">
+      <app-participant [participantItem]="participant"></app-participant>
     </a>
   </div>
 </section>
