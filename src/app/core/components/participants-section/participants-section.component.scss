@@ -1,0 +1,83 @@
+.participants-heading {
+  font-size: 3rem;
+}
+
+.heading-btns {
+  display: flex;
+  align-items: center;
+}
+
+.update-list-btn {
+  margin-left: 1rem;
+  cursor: pointer;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.update-list-btn {
+  background-color: #008000;
+}
+
+.update-list-btn:disabled {
+  cursor: auto;
+  background-color: #339933;
+}
+
+.update-list-btn:hover {
+  background-color: #339933;
+}
+
+.timer-container {
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.timer-img-container {
+  width: 1.5rem;
+}
+
+.timer-img-container img {
+  width: 100%;
+}
+
+.participants-container {
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.participant-info {
+  margin: 0.5rem 0;
+  text-align: center;
+  padding: 0.2rem 0;
+}
+
+.participant-info span {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #4d80e4;
+}
+
+// .participants-container a {
+//   text-decoration: none;
+//   color: auto;
+// }
+
+.participant-link,
+.participant-link:visited,
+.participant-link:hover,
+.participant-link:active {
+  text-decoration: none;
+  color: inherit;
+}

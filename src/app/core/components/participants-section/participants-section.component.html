@@ -1,0 +1,49 @@
+<section class="participants-section">
+  <div class="heading-btns">
+    <h3 class="participants-heading">Excisting Participants</h3>
+    <div class="timer-container">
+      <button
+        [disabled]="showTimer$ | async"
+        class="update-list-btn"
+        (click)="updateList()"
+      >
+        Update
+      </button>
+      <div *ngIf="showTimer$ | async"  class="timer-container">
+        <div class="timer-img-container">
+          <img [src]="'assets/imgs/timer-logo.png'" alt="Timer Logo" />
+        </div>
+        <span class="countDown">Remaining seconds: {{ remainingSeconds$ | async }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="participant-info">
+    <span>You have already created a conversation with a participant with the dark background</span>
+  </div>
+  <div class="participants-container">
+    <a class="participant-link" href="#">
+      <app-participant></app-participant>
+    </a>
+    <a class="participant-link" href="#">
+      <app-participant></app-participant>
+    </a>
+    <a class="participant-link" href="#">
+      <app-participant></app-participant>
+    </a>
+    <a class="participant-link" href="#">
+      <app-participant></app-participant>
+    </a>
+    <a class="participant-link" href="#">
+      <app-participant></app-participant>
+    </a>
+    <a class="participant-link" href="#">
+      <app-participant></app-participant>
+    </a>
+    <a class="participant-link" href="#">
+      <app-participant></app-participant>
+    </a>
+    <a class="participant-link" href="#">
+      <app-participant></app-participant>
+    </a>
+  </div>
+</section>

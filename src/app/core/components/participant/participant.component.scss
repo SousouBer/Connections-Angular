@@ -1,0 +1,37 @@
+.participant {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  padding: 1.5rem 2.5rem;
+  transition: all 0.3s ease;
+}
+
+.participant:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.20);
+  background-color: #F6F6F6;
+}
+
+.participant-name {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.conversation-text {
+  font-size: 1.5rem;
+}
+
+// .pets-content {
+//   background-color: #fff;
+//   padding-bottom: 4rem;
+//   transition: all 0.3s;
+// }
+
+.pets-content:hover {
+  transform: translateY(-2rem);
+  box-shadow: 0 1.6rem 3.2rem rgba(0, 0, 0, 0.20);
+  background-color: #F6F6F6;
+}
+
+.pets-content:hover .btn-pets {
+  background-color: #F1CDB3;
+}

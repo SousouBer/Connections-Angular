@@ -7,6 +7,7 @@ import { GroupComponent } from '../group/group.component';
 import { Observable, Subscription, interval, map, take, takeWhile } from 'rxjs';
 import { GroupnameFormComponent } from '../groupname-form/groupname-form.component';
 import { GroupSectionComponent } from '../group-section/group-section.component';
+import { ParticipantsSectionComponent } from '../participants-section/participants-section.component';
 
 @Component({
   selector: 'app-main',
@@ -18,6 +19,7 @@ import { GroupSectionComponent } from '../group-section/group-section.component'
     RouterModule,
     RouterOutlet,
     GroupSectionComponent,
+    ParticipantsSectionComponent
   ],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],

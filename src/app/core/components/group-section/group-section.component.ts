@@ -19,7 +19,7 @@ import {
   standalone: true,
   imports: [CommonModule, GroupComponent, GroupnameFormComponent],
   templateUrl: './group-section.component.html',
-  styleUrls: ['./group-section.component.scss'],
+  styleUrls: ['./group-section.component.scss']
 })
 export class GroupSectionComponent implements OnInit {
   // A stream of group items.
@@ -56,9 +56,9 @@ export class GroupSectionComponent implements OnInit {
 
   ngOnInit(): void {
     // Update the list once when the user first visits the page.
-    if (!this.firstRequest) {
-      this.store.dispatch(getGroups());
-    }
+    // if (!this.firstRequest) {
+    //   this.store.dispatch(getGroups());
+    // }
 
     this.showTimer$ = this.groupPeopleService.showTimerBoolean;
     this.remainingSeconds$ = this.groupPeopleService.remainingSeconds;
@@ -82,7 +82,6 @@ export class GroupSectionComponent implements OnInit {
 
   updateList() {
     this.store.dispatch(getGroups());
-    this.groupPeopleService.showTimer(true);
     this.groupPeopleService.startTimer();
   }
 

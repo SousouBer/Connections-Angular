@@ -20,8 +20,16 @@ export class GroupPeopleService {
   showCofirmationModal = new Subject<boolean>();
   groupId = '';
 
+  // Group section timer values.
   showTimerBoolean = new BehaviorSubject<boolean>(false);
   remainingSeconds = new BehaviorSubject<number>(60);
+
+  // Choose which values to update based on a string.
+  groupOrPeopleSection = '';
+
+  // Participant section timer values.
+  showTimerParticipant = new BehaviorSubject<boolean>(false);
+  remainingSecondsParticipant = new BehaviorSubject<number>(60);
 
   constructor(private store: Store<AppState>, private dataStorageService: DataStorageService) {}
 
@@ -30,7 +38,28 @@ export class GroupPeopleService {
     this.showTimerBoolean.next(value);
   }
 
+  showTimerPeople(value: boolean){
+    this.showTimerParticipant.next(value);
+  }
+
+  peopleTimer(){
+    this.showTimerPeople(true);
+    interval(1000)
+      .pipe(
+        take(this.countdownSeconds),
+        map((value) => this.countdownSeconds - 1 - value),
+        takeWhile((value) => value >= -1)
+      )
+      .subscribe((result) => {
+        if (result === 0) {
+          this.showTimerPeople(false);
+        }
+        this.remainingSecondsParticipant.next(result);
+      });
+  }
+
   startTimer() {
+    this.showTimer(true);
     interval(1000)
       .pipe(
         take(this.countdownSeconds),
