@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { Profile } from 'src/app/store/reducers/profile.reducers';
 import { GroupId } from '../models/group.models';
 import { catchError } from 'rxjs';
-import { ParticipantsData } from '../models/participants.models';
+import { ConversationsPData, ParticipantsData } from '../models/participants.models';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -55,7 +55,7 @@ export class DataStorageService {
 
   //Get conversations' list of a current user.
   getConversations(){
-    return this.http.get(this.getActiveConversations);
+    return this.http.get<ConversationsPData>(this.getActiveConversations);
   }
 
   // Create conversation with a user.

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, switchMap } from 'rxjs';
+import { EMPTY, catchError, map, switchMap } from 'rxjs';
 
 import { DataStorageService } from 'src/app/core/services/data-storage.service';
 import * as GroupActions from '../actions/groups.actions';
@@ -24,7 +24,8 @@ export class GroupsEffects {
             this.groupPeopleService.requestmessage(
               'List updated successfully!'
             );
-              return GroupActions.storeGroups({
+            this.groupPeopleService.startTimer();
+            return GroupActions.storeGroups({
               groups: groupsData as Groups,
             });
           })
@@ -32,5 +33,4 @@ export class GroupsEffects {
       )
     )
   );
-
 }

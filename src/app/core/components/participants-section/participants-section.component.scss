@@ -50,9 +50,9 @@
 
 .participants-container {
   padding: 2rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   align-items: center;
-  // justify-content: center;
   flex-wrap: wrap;
   gap: 2rem;
 }
@@ -80,4 +80,21 @@
 .participant-link:active {
   text-decoration: none;
   color: inherit;
+}
+
+.total-count {
+  margin-top: 1rem;
+  font-size: 2rem;
+}
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5rem;
+}
+
+.error-message {
+  font-size: 2rem;
+  font-weight: 700;
 }

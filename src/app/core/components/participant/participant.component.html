@@ -1,4 +1,4 @@
-<div class="participant" (click)="makeConversation()">
+<div class="participant" (click)="makeConversation()" [class.darker-background]="participantItem.hasOwnProperty('conversationID')">
   <h5 class="participant-name">{{ participantItem.name.S }}</h5>
-  <span class="conversation-text">{{ participantItem.uid.S }}</span>
+  <span class="conversation-text">Click to make a conversation.</span>
 </div>
