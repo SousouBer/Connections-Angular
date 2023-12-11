@@ -1,8 +1,11 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './auth/services/auth.guard';
+import { SigninComponent } from './auth/components/signin/signin.component';
 
 export const routes: Routes = [
   {
     path: '',
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('./core/components/main/main.component').then(
         (mod) => mod.MainComponent
@@ -24,6 +27,7 @@ export const routes: Routes = [
   },
   {
     path: 'profile',
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('./core/components/profile/profile.component').then(
         (mod) => mod.ProfileComponent
