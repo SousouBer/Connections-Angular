@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Profile } from 'src/app/store/reducers/profile.reducers';
-import { GroupId } from '../models/group.models';
+import { GroupId, GroupMessages } from '../models/group.models';
 import { catchError } from 'rxjs';
 import { ConversationsPData, ParticipantsData } from '../models/participants.models';
 
@@ -16,6 +16,7 @@ export class DataStorageService {
   private getParticipantsUrl = 'https://tasks.app.rs.school/angular/users';
   private getActiveConversations = 'https://tasks.app.rs.school/angular/conversations/list';
   private createConversationUrl = 'https://tasks.app.rs.school/angular/conversations/create';
+  private getGroupMessagesUrl = 'https://tasks.app.rs.school/angular/groups/read';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -63,5 +64,13 @@ export class DataStorageService {
     return this.http.post(this.createConversationUrl, {
       companion: companionID
     })
+  }
+
+  // Get specific group messages.
+  getGroupMessages(groupID: string){
+    const params = new HttpParams()
+            .set("groupID", groupID);
+
+    return this.http.get<GroupMessages>(this.getGroupMessagesUrl, { params })
   }
 }

@@ -56,9 +56,9 @@ export class GroupSectionComponent implements OnInit {
 
   ngOnInit(): void {
     // Update the list once when the user first visits the page.
-    if (!this.firstRequest) {
-      this.store.dispatch(getGroups());
-    }
+    // if (!this.firstRequest) {
+    //   this.store.dispatch(getGroups());
+    // }
 
     this.showTimer$ = this.groupPeopleService.showTimerBoolean;
     this.remainingSeconds$ = this.groupPeopleService.remainingSeconds;

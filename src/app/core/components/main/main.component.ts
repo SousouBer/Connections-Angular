@@ -8,6 +8,7 @@ import { Observable, Subscription, interval, map, take, takeWhile } from 'rxjs';
 import { GroupnameFormComponent } from '../groupname-form/groupname-form.component';
 import { GroupSectionComponent } from '../group-section/group-section.component';
 import { ParticipantsSectionComponent } from '../participants-section/participants-section.component';
+import { GroupDialogComponent } from '../group-dialog/group-dialog.component';
 
 @Component({
   selector: 'app-main',
@@ -19,7 +20,8 @@ import { ParticipantsSectionComponent } from '../participants-section/participan
     RouterModule,
     RouterOutlet,
     GroupSectionComponent,
-    ParticipantsSectionComponent
+    ParticipantsSectionComponent,
+    GroupDialogComponent
   ],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],

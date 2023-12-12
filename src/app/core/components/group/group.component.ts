@@ -9,6 +9,7 @@ import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
 import { removeGroup } from 'src/app/store/actions/groups.actions';
 import { GroupPeopleService } from '../../services/groups-people.service';
+import { getGroupMessages } from 'src/app/store/actions/group-messages.actions';
 
 @Component({
   selector: 'app-group',
@@ -34,5 +35,11 @@ export class GroupComponent implements OnInit {
 
     this.groupPeopleSerice.saveGroupId(groupid);
     this.groupPeopleSerice.showOrHideConfirmationModal(true);
+  }
+
+  getGroupMessages(){
+    const itemId = this.groupItem.id.S;
+    console.log('clicked');
+    this.store.dispatch(getGroupMessages({ groupID: itemId }))
   }
 }

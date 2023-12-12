@@ -46,9 +46,9 @@ export class ParticipantsSectionComponent implements OnInit {
 
   ngOnInit(): void {
     // Update the list once when the user first visits the page.
-    if (!this.firstRequest) {
-      this.store.dispatch(getParticipantsFromAPI());
-    }
+    // if (!this.firstRequest) {
+    //   this.store.dispatch(getParticipantsFromAPI());
+    // }
 
     this.showTimer$ = this.groupPeopleService.showTimerParticipant;
     this.remainingSeconds$ =

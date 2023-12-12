@@ -24,3 +24,21 @@ export interface Group {
 export interface GroupId {
   groupID: string;
 }
+
+// Interface for group messages.
+export interface GroupMessages {
+  Count: number;
+  Items: GroupMessage[];
+}
+
+export interface GroupMessage {
+  authodID: {
+    S: string;
+  },
+  message: {
+    S: string;
+  },
+  createdAt: {
+    S: string;
+  }
+}
