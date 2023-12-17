@@ -1,6 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { ParticipantsState } from '../reducers/participants.reducers';
+import { Participant } from 'src/app/core/models/participants.models';
 
 export const participantsState = (state: AppState) => state.participantsData;
 
@@ -13,6 +14,16 @@ export const participantItems = createSelector(
   participantsState,
   (state: ParticipantsState) => state.participantsData.Items
 );
+
+// Get the name of the participant using it's unique id.
+export const messageAuthorName = (creatorID: string) => createSelector(
+  participantsState,
+  (state: ParticipantsState) => {
+    const user = state.participantsData.Items.find(user => user.uid.S === creatorID);
+
+    return <Participant>user;
+  }
+)
 
 export const firstRequestValue = createSelector(
   participantsState,

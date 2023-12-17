@@ -3,8 +3,12 @@ import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Profile } from 'src/app/store/reducers/profile.reducers';
 import { GroupId, GroupMessages } from '../models/group.models';
-import { catchError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, take } from 'rxjs';
 import { ConversationsPData, ParticipantsData } from '../models/participants.models';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
+import { messageTimestamp } from 'src/app/store/selectors/group-messages.selectors';
+import { GroupPeopleService } from './groups-people.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -17,8 +21,18 @@ export class DataStorageService {
   private getActiveConversations = 'https://tasks.app.rs.school/angular/conversations/list';
   private createConversationUrl = 'https://tasks.app.rs.school/angular/conversations/create';
   private getGroupMessagesUrl = 'https://tasks.app.rs.school/angular/groups/read';
+  private sendGroupMessageUrl = 'https://tasks.app.rs.school/angular/groups/append';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  // GroupID to calculate the timestamp.
+  groupID = new Subject<string>();
+
+  // Timestamp for the last message in the group.
+  // messageTimestamp$!: Observable<number>;
+
+
+  constructor(private http: HttpClient, private authService: AuthService) { // this.groupID = this.groupPeopleService.groupId;
+    // this.messageTimestamp$ = this.store.select(messageTimestamp(this.groupID.getValue()));
+  }
 
   // Get user's (your) profile details.
   getUserProfile() {
@@ -72,5 +86,22 @@ export class DataStorageService {
             .set("groupID", groupID);
 
     return this.http.get<GroupMessages>(this.getGroupMessagesUrl, { params })
+  }
+
+  // Update group messages.
+  updaTeGroupMessages(groupID: string, timestamp: number){
+    const params = new HttpParams()
+            .set("groupID", groupID)
+            .set("since", timestamp);
+
+    return this.http.get<GroupMessages>(this.getGroupMessagesUrl, { params })
+  }
+
+  // Send a message to a group.
+  sendGroupMessage(groupID: string, message: string){
+    return this.http.post(this.sendGroupMessageUrl, {
+      groupID: groupID,
+      message: message
+    });
   }
 }

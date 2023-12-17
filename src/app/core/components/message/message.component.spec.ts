@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GroupMessagegComponent } from './group-messageg.component';
+import { MessageComponent } from './message.component';
 
-describe('GroupMessagegComponent', () => {
-  let component: GroupMessagegComponent;
-  let fixture: ComponentFixture<GroupMessagegComponent>;
+describe('MessageComponent', () => {
+  let component: MessageComponent;
+  let fixture: ComponentFixture<MessageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ GroupMessagegComponent ]
+      imports: [ MessageComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GroupMessagegComponent);
+    fixture = TestBed.createComponent(MessageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -32,7 +32,7 @@ export interface GroupMessages {
 }
 
 export interface GroupMessage {
-  authodID: {
+  authorID: {
     S: string;
   },
   message: {

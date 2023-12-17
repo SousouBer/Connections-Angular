@@ -1,56 +1,60 @@
+<div *ngIf="showModalWindow" class="modal-background" (click)="hideModal()">
+  <div class="confirm-deletion" (click)="stopPropagation($event)">
+    <span>Are you sure you want to delete the group?</span>
+    <div class="btns">
+      <button class="btn-confirm" (click)="removeGroup()">Confirm</button>
+      <button class="btn-cancel" (click)="hideModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <section class="group-dialog-container">
-  <div class="dialog-btns">
-    <div class="control-group-btns">
-      <button class="back-btn">Back To Main Page</button>
-      <button class="update-btn">Update The Messages</button>
+  <div class="group-dialog-section">
+    <div class="dialog-btns">
+      <div class="control-group-btns">
+        <a class="back-btn" routerLink="/">Back To Main Page</a>
+        <button class="update-btn" (click)="updateMessages()">
+          Update The Messages
+        </button>
+      </div>
+      <button
+        *ngIf="(groupCreatedBy$ | async) === authenticatedUser.uid"
+        class="remove-btn"
+        (click)="showModal()"
+      >
+        Remove The Group
+      </button>
     </div>
-    <button class="remove-btn">Remove The Group</button>
+    <div class="group-dialog">
+      <div *ngIf="showErrorMessage" class="error-message-container">
+        <p class="error-message">{{ errMessage }}</p>
+      </div>
+      <ng-container *ngFor="let message of groupMessages$ | async">
+        <app-message
+          [groupMessage]="message"
+          class="message-container"
+          [class.align-right]="message.authorID.S === authenticatedUser.uid"
+        ></app-message>
+      </ng-container>
+    </div>
+    <form
+      [formGroup]="messageForm"
+      class="message-form"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="message-input-container">
+        <input
+          formControlName="message"
+          class="message-input"
+          type="text"
+          placeholder="Type a message..."
+        />
+      </div>
+      <div class="message-btn-container">
+        <button [disabled]="messageForm.invalid" class="send-btn" type="submit">
+          Send
+        </button>
+      </div>
+    </form>
   </div>
-  <div class="group-dialog">
-    <div class="message-container align-self">
-      <div class="message-creator">
-        <span>Soso</span>
-      </div>
-      <p class="message">My name is Soso</p>
-      <div class="date-container">
-        <span>Sent on: December, 2023, 25:56</span>
-      </div>
-    </div>
-    <div class="message-container align-self">
-      <div class="message-creator">
-        <span>Soso</span>
-      </div>
-      <p class="message">
-        My name is Soso and this is my very first message, hopefully you guys
-        can see it lol! And I am making an angular application!
-      </p>
-      <div class="date-container">
-        <span>Sent on: December, 2023, 25:56</span>
-      </div>
-    </div>
-    <div class="message-container my-message">
-      <div class="message-creator">
-        <span>Soso</span>
-      </div>
-      <p class="message">
-        My name is Soso and this is my very first message, hopefully you guys
-        can see it lol! And I am making an angular application!
-      </p>
-      <div class="date-container">
-        <span>Sent on: December, 2023, 25:56</span>
-      </div>
-    </div>
-  </div>
-  <form class="message-form">
-    <div class="message-input-container">
-      <input
-        class="message-input"
-        type="text"
-        placeholder="Type a message..."
-      />
-    </div>
-    <div class="message-btn-container">
-      <button class="send-btn" type="submit">Send</button>
-    </div>
-  </form>
 </section>

@@ -10,9 +10,17 @@
     <div class="group-details">
       <span class="group-description">{{ groupItem.name.S }}</span>
     </div>
-    <button *ngIf="groupItem.createdBy.S === authenticatedUser.uid" class="remove-group-btn" (click)="removeGroup()">Delete</button>
+    <button
+      *ngIf="groupItem.createdBy.S === authenticatedUser.uid"
+      class="remove-group-btn"
+      (click)="removeGroup($event)"
+    >
+      Delete
+    </button>
   </div>
   <div class="group-date-container">
-    <span class="group-date">Created at: {{ groupItem.createdAt.S | date }}</span>
+    <span class="group-date"
+      >Created at: {{ groupItem.createdAt.S | date }}</span
+    >
   </div>
 </div>

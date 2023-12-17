@@ -1,9 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Subject, interval, map, take, takeWhile } from 'rxjs';
-import { addCreatedGroupToStore, removeGroup } from 'src/app/store/actions/groups.actions';
+import {
+  BehaviorSubject,
+  Subject,
+  interval,
+  map,
+  switchMap,
+  take,
+  takeWhile,
+  tap,
+} from 'rxjs';
+import {
+  addCreatedGroupToStore,
+  removeGroup,
+} from 'src/app/store/actions/groups.actions';
 import { AppState } from 'src/app/store/app.state';
 import { DataStorageService } from './data-storage.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -11,14 +24,26 @@ import { DataStorageService } from './data-storage.service';
 export class GroupPeopleService {
   private readonly countdownSeconds = 60;
 
+  // Error message to be displayed in the template.
+  showErrorMessageValue = new Subject<boolean>();
+  errorMessage = new Subject<string>();
+
   showModalBoolean = new Subject<boolean>();
 
   showRequestMessage = new Subject<boolean>();
-  requestResultMessage = new Subject<String>()
+  requestResultMessage = new Subject<String>();
 
   // Save the GroupID value to remove it from the server.
   showCofirmationModal = new Subject<boolean>();
-  groupId = '';
+
+  // Group ID for displating specific group messages.
+
+  // groupId = '';
+
+  groupId = new BehaviorSubject<string>('');
+
+  // GROUPID for loading messages.
+  groupIdMessages = new BehaviorSubject<string>('');
 
   // Group section timer values.
   showTimerBoolean = new BehaviorSubject<boolean>(false);
@@ -31,18 +56,24 @@ export class GroupPeopleService {
   showTimerParticipant = new BehaviorSubject<boolean>(false);
   remainingSecondsParticipant = new BehaviorSubject<number>(60);
 
-  constructor(private store: Store<AppState>, private dataStorageService: DataStorageService) {}
+  // Group created by.
+  createdBy = new Subject<string>();
+
+  constructor(
+    private store: Store<AppState>,
+    private dataStorageService: DataStorageService
+  ) {}
 
   // Manage the timer state from another component. In this case, in the group component.
-  showTimer(value: boolean){
+  showTimer(value: boolean) {
     this.showTimerBoolean.next(value);
   }
 
-  showTimerPeople(value: boolean){
+  showTimerPeople(value: boolean) {
     this.showTimerParticipant.next(value);
   }
 
-  peopleTimer(){
+  peopleTimer() {
     this.showTimerPeople(true);
     interval(1000)
       .pipe(
@@ -78,7 +109,7 @@ export class GroupPeopleService {
     this.showModalBoolean.next(value);
   }
 
-  requestmessage(value: string){
+  requestmessage(value: string) {
     this.requestResultMessage.next(value);
     this.showRequestMessage.next(true);
     setTimeout(() => {
@@ -86,19 +117,27 @@ export class GroupPeopleService {
     }, 2000);
   }
 
-  showOrHideConfirmationModal(val: boolean){
+  showOrHideConfirmationModal(val: boolean) {
     this.showCofirmationModal.next(val);
   }
 
-  saveGroupId(groupID: string){
-    this.groupId = groupID;
+  // saveGroupId(groupID: string){
+  //   this.groupId = groupID;
+  // }
+  saveGroupId(groupID: string) {
+    this.groupId.next(groupID);
   }
 
   // Delete the group from the server using the groupID provided from group component.
-  deleteGroup(){
-    this.dataStorageService.deleteGroup(this.groupId).subscribe(
-      val => this.store.dispatch(removeGroup({ groupID: this.groupId }))
-    )
+  deleteGroup() {
+    // Get the value of the ID without subscribing to it.
+    const id = this.groupId.getValue();
+
+    // Take the value once and then automatically unsubscribe.
+    this.dataStorageService
+      .deleteGroup(id)
+      .pipe(take(1))
+      .subscribe((val) => this.store.dispatch(removeGroup({ groupID: id })));
   }
 
   addGroupToStore(name: string, groupId: string) {
@@ -118,7 +157,7 @@ export class GroupPeopleService {
         S: name,
       },
       createdAt: {
-        S: new Date().toString(),
+        S: new Date().getTime().toString(),
       },
       createdBy: {
         S: userId,
@@ -126,5 +165,16 @@ export class GroupPeopleService {
     };
 
     this.store.dispatch(addCreatedGroupToStore({ group: createdGroup }));
+  }
+
+  updateErrorMessage(val: HttpErrorResponse) {
+    let errorMessage = 'An unknown error occured. Please, try again later.';
+
+    if (val?.error?.type === 'InvalidIDException') {
+      errorMessage = val?.message;
+    }
+    this.errorMessage.next(errorMessage);
+    this.showErrorMessageValue.next(true);
+    console.log(val);
   }
 }

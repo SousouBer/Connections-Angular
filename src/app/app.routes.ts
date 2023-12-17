@@ -33,12 +33,12 @@ export const routes: Routes = [
         (mod) => mod.ProfileComponent
       ),
   },
-  // {
-  //   path: 'group',
-  //   // canActivate: [AuthGuard],
-  //   loadComponent: () =>
-  //     import('./core/components/group-dialog/group-dialog.component').then(
-  //       (mod) => mod.GroupDialogComponent
-  //     ),
-  // },
+  {
+    path: 'group/:groupId',
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('./core/components/group-dialog/group-dialog.component').then(
+        (mod) => mod.GroupDialogComponent
+      ),
+  },
 ];

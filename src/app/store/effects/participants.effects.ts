@@ -20,40 +20,6 @@ export class ParticipantsEffects {
     private store: Store<AppState>
   ) {}
 
-  // participantsEffects = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(ParticipantsActions.getParticipantsFromAPI),
-  //     switchMap(() =>
-  //       this.dataStorageService.getParticipantsList().pipe(
-  //         map((participantsData) =>
-  //           ParticipantsActions.storeParticipantsToStore({
-  //             participantsData: participantsData as ParticipantsData,
-  //           })
-  //         )
-  //       )
-  //     )
-  //   )
-  // );
-
-  // participantsEffects = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(ParticipantsActions.getParticipantsFromAPI),
-  //     switchMap(() =>
-  //       this.dataStorageService.getParticipantsList().pipe(
-  //         map((participantsData) => {
-  //           const participantsArray = (<ParticipantsData>participantsData).Items;
-
-  //           return ParticipantsActions.storeParticipantsToStore({
-  //             participantsData: participantsData as ParticipantsData,
-  //           })
-  //         })
-  //       )
-  //     )
-  //   )
-  // );
-
-  // this.groupPeopleService.peopleTimer();
-
   getParticipants = createEffect(
     () =>
       this.actions$.pipe(
@@ -72,17 +38,6 @@ export class ParticipantsEffects {
         ),
         tap(() => this.store.dispatch(ParticipantsActions.getConversationPs()))
       )
-    // mergeMap(() =>
-    //   this.dataStorageService
-    //     .getConversations()
-    //     .pipe(
-    //       map((data) =>
-    //         ParticipantsActions.StoreConversationPsToStore({
-    //           conversationPs: data,
-    //         })
-    //       )
-    //     )
-    // )
   );
 
   getConversationParticipants = createEffect(() =>
@@ -99,8 +54,4 @@ export class ParticipantsEffects {
       )
     )
   );
-  // }
-
-  // ParticipantsActions.storeParticipantsToStore({
-  //   participantsData: participantsData as ParticipantsData,
 }

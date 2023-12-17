@@ -18,3 +18,13 @@ export const firstRequestValue = createSelector(
   getGroupsState,
   (state: GroupsState) => state.firstRequestMade
 )
+
+// Get the author of the group.
+export const groupAuthor = (groupID: string) => createSelector(
+  getGroupsState,
+  (state: GroupsState) => {
+    const group = state.groupsData.Items.find(group => group.id.S === groupID);
+
+    return <string>group?.createdBy.S;
+  }
+)
