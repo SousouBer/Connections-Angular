@@ -1,6 +1,6 @@
-# ConnectionsApp
+# About the application - Connections
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.13.
+Application represents the platform to allow users to communicate via public text messages. Before starting to use the service a guest must register and sign in. Authorized user can see vertically divided main page, where left side is a list of public group and right side is a list of people including personal conversations. Each user can create own public group and broadcast messages there or use existing group along with other participants. These messages are then sent to the API. Personal information can be viewed on a special profile page, where it can be immediately edited. The application is by far the most complex one I have made yet. It uses all the core parts of Angular, Http, Routing, guards, forms and validations, authentication, RxJs and NgRx.
 
 ## Development server
 
