@@ -1,0 +1,26 @@
+<div class="group-container" (click)="getGroupMessages()">
+  <div class="group">
+    <div class="group-img-container">
+      <img
+        class="group-logo"
+        [src]="'assets/imgs/group-item-logo.png'"
+        alt="Group logo"
+      />
+    </div>
+    <div class="group-details">
+      <span class="group-description">{{ groupItem.name.S }}</span>
+    </div>
+    <button
+      *ngIf="groupItem.createdBy.S === authenticatedUser.uid"
+      class="remove-group-btn"
+      (click)="removeGroup($event)"
+    >
+      Delete
+    </button>
+  </div>
+  <div class="group-date-container">
+    <span class="group-date"
+      >Created at: {{ groupItem.createdAt.S | date }}</span
+    >
+  </div>
+</div>

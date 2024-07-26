@@ -1,0 +1,33 @@
+<section class="participants-section">
+  <div class="heading-btns">
+    <h3 class="participants-heading">Excisting Participants</h3>
+    <div class="timer-container">
+      <button
+        [disabled]="showTimer$ | async"
+        class="update-list-btn"
+        (click)="updateList()"
+      >
+        Update
+      </button>
+      <div *ngIf="showTimer$ | async"  class="timer-container">
+        <div class="timer-img-container">
+          <img [src]="'assets/imgs/timer-logo.png'" alt="Timer Logo" />
+        </div>
+        <span class="countDown">Remaining seconds: {{ remainingSeconds$ | async }}</span>
+      </div>
+    </div>
+  </div>
+  <p class="total-count">Total Count: {{ participantTotalCount$ | async }}</p>
+  <div class="participant-info">
+    <!-- <span>You have already created a conversation with a participant with the dark background</span> -->
+  </div>
+  <div *ngIf="showSpinner" class="spinner-container">
+    <app-spinner></app-spinner>
+    <!-- <p class="error-message">Something went wrong. Please, check your internet connection.</p> -->
+  </div>
+  <div *ngIf="!showSpinner" class="participants-container">
+    <a *ngFor="let participant of participantItems$ | async" class="participant-link" href="#">
+      <app-participant [participantItem]="participant"></app-participant>
+    </a>
+  </div>
+</section>

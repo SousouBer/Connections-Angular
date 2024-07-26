@@ -1,0 +1,71 @@
+<section class="profile-section">
+  <div class="profile-container">
+    <div class="img-container">
+      <img [src]="'assets/imgs/user2.png'" alt="User logo" />
+    </div>
+    <div class="profile-details">
+      <div class="name-container">
+        <form
+        [formGroup]="usernameForm"
+        *ngIf="editUsername"
+        class="username-edit-form"
+        (ngSubmit)="onSave()"
+        >
+        <div class="input-container">
+            <input formControlName="name" class="username-input" type="text" />
+            <span *ngIf="name?.invalid && name?.touched" class="warning-message"
+              >Please, enter a valid first name.</span
+            >
+            <span *ngIf="name?.errors?.['maxlength']" class="warning-message"
+              >Input is more than 40 characters.</span
+            >
+            <span
+              *ngIf="name?.errors?.['onlyLettersAndLettersAllowed']"
+              class="warning-message"
+              >Input must contain letters and spaces only.</span
+            >
+          </div>
+          <div class="input-btns-container">
+            <app-spinner *ngIf="isLoading"></app-spinner>
+            <button
+              *ngIf="!isLoading"
+              class="save-username"
+              type="submit"
+            >
+              Save
+            </button>
+            <button
+              *ngIf="!isLoading"
+              (click)="cancelEdit()"
+              class="cancel-username"
+              type="button"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+        <span *ngIf="!editUsername" class="user-name"
+          >Your Name: {{ (currentProfile$ | async)?.name?.S }}</span
+        >
+        <button
+          *ngIf="!editUsername"
+          class="edit-username-btn"
+          (click)="editUser()"
+        >
+          Edit
+        </button>
+      </div>
+      <span *ngIf="showRequestMessage" class="request-message" [ngClass]="defineMessageColor === 'success' ? 'success' : 'failed'">{{ successOrFailedMessage }}</span>
+      <span class="user-email"
+        >Your E-mail: {{ (currentProfile$ | async)?.email?.S }}</span
+      >
+      <span class="user-id"
+        >Your ID: {{ (currentProfile$ | async)?.uid?.S }}</span
+      >
+      <span class="user-email"
+        >Account creation time:
+        {{ (currentProfile$ | async)?.createdAt?.S | date }}</span
+      >
+    </div>
+  </div>
+</section>

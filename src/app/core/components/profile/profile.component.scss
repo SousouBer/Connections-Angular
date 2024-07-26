@@ -1,0 +1,132 @@
+.profile-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-container {
+  background-color: #fff;
+  padding: 3rem 4rem;
+  margin: 10rem 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.img-container {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // max-width: 30rem;
+}
+
+.img-container img {
+  width: 50%;
+}
+
+.profile-details {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  font-family: inherit;
+  font-size: 2rem;
+  flex-direction: column;
+}
+
+.name-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.edit-username-btn {
+  font-size: 1.5rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  background-color: #4d80e4;
+  padding: 1rem 5rem;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.edit-username-btn:hover {
+  background-color: #5f8de7;
+}
+
+.username-edit-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+}
+
+.save-username,
+.cancel-username {
+  font-size: 1.5rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  padding: 1rem 2.5rem;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.save-username {
+  background-color: #008000;
+  margin-right: 0.5rem;
+}
+
+.save-username:hover {
+  background-color: #339933;
+}
+
+.cancel-username {
+  background-color: #ff0000;
+}
+
+.cancel-username:hover {
+  background-color: #ff3333;
+}
+
+.username-input {
+  font-size: 2rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.username-input:focus {
+  outline: none;
+}
+
+.warning-message {
+  font-size: 1rem;
+  color: red;
+  font-style: italic;
+  margin-top: 0.2rem;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+  border-radius: 5px;
+}
+
+.input-container {
+  display: flex;
+  // align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.request-message {
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.success {
+  color: #008000;
+}
+
+.failed {
+  color: #ff0000;
+}

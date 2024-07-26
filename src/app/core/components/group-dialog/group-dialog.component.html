@@ -1,0 +1,60 @@
+<div *ngIf="showModalWindow" class="modal-background" (click)="hideModal()">
+  <div class="confirm-deletion" (click)="stopPropagation($event)">
+    <span>Are you sure you want to delete the group?</span>
+    <div class="btns">
+      <button class="btn-confirm" (click)="removeGroup()">Confirm</button>
+      <button class="btn-cancel" (click)="hideModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<section class="group-dialog-container">
+  <div class="group-dialog-section">
+    <div class="dialog-btns">
+      <div class="control-group-btns">
+        <a class="back-btn" routerLink="/">Back To Main Page</a>
+        <button class="update-btn" (click)="updateMessages()">
+          Update The Messages
+        </button>
+      </div>
+      <button
+        *ngIf="(groupCreatedBy$ | async) === authenticatedUser.uid"
+        class="remove-btn"
+        (click)="showModal()"
+      >
+        Remove The Group
+      </button>
+    </div>
+    <div class="group-dialog">
+      <div *ngIf="showErrorMessage" class="error-message-container">
+        <p class="error-message">{{ errMessage }}</p>
+      </div>
+      <ng-container *ngFor="let message of groupMessages$ | async">
+        <app-message
+          [groupMessage]="message"
+          class="message-container"
+          [class.align-right]="message.authorID.S === authenticatedUser.uid"
+        ></app-message>
+      </ng-container>
+    </div>
+    <form
+      [formGroup]="messageForm"
+      class="message-form"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="message-input-container">
+        <input
+          formControlName="message"
+          class="message-input"
+          type="text"
+          placeholder="Type a message..."
+        />
+      </div>
+      <div class="message-btn-container">
+        <button [disabled]="messageForm.invalid" class="send-btn" type="submit">
+          Send
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

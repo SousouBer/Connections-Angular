@@ -1,0 +1,9 @@
+<div class="message-container" [class.align-right]="groupMessage.authorID.S === authenticatedUser.uid">
+  <div class="message-creator">
+    <span>{{ (user$ | async)?.name?.S }}</span>
+  </div>
+  <p class="message">{{ groupMessage.message.S }}</p>
+  <div class="date-container">
+    <span>Sent on: {{ groupMessage.createdAt.S | date:'medium'}}</span>
+  </div>
+</div>

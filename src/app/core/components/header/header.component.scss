@@ -1,0 +1,52 @@
+.header-section {
+  background-color: #4d80e4;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-title {
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.title-auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.auth-btn, .logout-btn, .profile-btn {
+  margin-left: 2rem;
+  font-family: inherit;
+  cursor: pointer;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  background: none;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+}
+
+.auth-btn:hover, .logout-btn:hover, .profile-btn:hover {
+  box-shadow: inset 0 0 0 1px #fff;
+}
+
+.img-container {
+  border-radius: 50%;
+  overflow: hidden;
+  height: 7rem;
+  width: 7rem;
+}
+
+.img-container img {
+  width: 100%;
+}
+
+.active-router-btn {
+  box-shadow: inset 0 0 0 1px #fff;
+}

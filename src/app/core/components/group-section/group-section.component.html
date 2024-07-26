@@ -1,0 +1,49 @@
+<div
+  class="modal-background"
+  *ngIf="showModalWindow"
+  (click)="hideModal()"
+>
+  <app-groupname-form (click)="stopPropagation($event)"></app-groupname-form>
+</div>
+<div
+  class="modal-background"
+  *ngIf="showConfirmationDays"
+>
+  <div class="confirm-deletion">
+    <span>Are you sure you want to delete the group?</span>
+    <div class="btns">
+      <button class="btn-confirm" (click)="deleteSelectedGroup()">Confirm</button>
+      <button class="btn-cancel" (click)="candelDeletion()">Cancel</button>
+    </div>
+  </div>
+</div>
+<div *ngIf="showResultMessage" class="message-container">
+  <span class="req-result-message">{{ requestResultMessage }}</span>
+</div>
+<section class="group-section-container">
+  <div class="heading-and-btn">
+    <h3 class="group-heading">All Available Groups</h3>
+    <button class="create-btn" (click)="showModal()">
+      Create A Group
+    </button>
+    <button
+      [disabled]="showTimer$ | async"
+      class="update-list-btn"
+      (click)="updateList()"
+    >
+      Update
+    </button>
+    <div *ngIf="showTimer$ | async" class="timer-container">
+      <div class="timer-img-container">
+        <img [src]="'assets/imgs/timer-logo.png'" alt="Timer Logo" />
+      </div>
+      <span class="countDown">Remaining seconds: {{ remainingSeconds$ | async }}</span>
+    </div>
+  </div>
+  <span class="group-count">Total Count: {{ groupTotalCount$ | async }}</span>
+  <div class="group-items-container">
+    <ng-container *ngFor="let group of groupItems$ | async">
+      <app-group [groupItem]="group"></app-group>
+    </ng-container>
+  </div>
+</section>
